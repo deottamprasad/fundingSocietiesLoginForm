@@ -1,0 +1,43 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {componentStyles} from '../styles/ComponentStyle';
+import {RootStackParamList} from './Main';
+
+interface PropsType {
+  children: React.ReactNode;
+  navigation:
+    | NativeStackScreenProps<RootStackParamList, 'HomeScreen'>['navigation']
+    | NativeStackScreenProps<RootStackParamList, 'LoginScreen'>['navigation']
+    | NativeStackScreenProps<RootStackParamList, 'WelcomeScreen'>['navigation']
+    | NativeStackScreenProps<RootStackParamList, 'RegisterScreen'>['navigation']
+    | NativeStackScreenProps<
+        RootStackParamList,
+        'ForgotPasswordScreen'
+      >['navigation']
+    | NativeStackScreenProps<
+        RootStackParamList,
+        'ResetPasswordScreen'
+      >['navigation'];
+}
+
+const HeaderBar = (props: PropsType) => {
+  const navigateBack = () => {
+    props.navigation.goBack();
+  };
+  return (
+    <View style={componentStyles.HeaderBar.headerBar}>
+      <Icon
+        name="arrowleft"
+        size={18}
+        color="white"
+        style={componentStyles.HeaderBar.leftArrowIcon}
+        onPress={navigateBack}
+      />
+      <Text style={componentStyles.HeaderBar.titleText}>{props.children}</Text>
+    </View>
+  );
+};
+
+export default HeaderBar;
