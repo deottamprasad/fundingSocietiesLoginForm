@@ -1,6 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {StatusBar} from 'react-native';
 
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -18,66 +19,113 @@ type RootStackParamList = {
   ResetPasswordScreen: undefined;
 };
 
-// import Icon from 'react-native-vector-icons/AntDesign';
-// import {styles} from '../styles/ComponentStyle';
-
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Main = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="WelcomeScreen"
         screenOptions={{
           animation: 'slide_from_right',
-          headerStyle: {backgroundColor: '#000B18'},
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 17,
-          },
-        }}>
+          statusBarColor: '#000B18',
+        }}
+        initialRouteName="WelcomeScreen">
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
-          options={{headerShown: false}}
+          options={{
+            headerTitle: 'Home',
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#000B18',
+            },
+            headerTitleStyle: {
+              fontSize: 17,
+            },
+            headerTintColor: '#e8e8e8',
+            headerTitleAlign: 'center',
+            headerBackVisible: false,
+          }}
         />
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
-          options={{headerShown: true, title: 'Sign In'}}
-          // options={({navigation, route}) => ({
-          //   headerShown: true,
-          //   title: 'Sign In',
-          //   headerLeft: () => (
-          //     <Icon
-          //       name="arrowleft"
-          //       size={17}
-          //       color="white"
-          //       style={styles.HeaderBar.leftArrowIcon}
-          //     />
-          //   ),
-          // })}
+          options={{
+            headerTitle: 'Sign In',
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#000B18',
+            },
+            headerTitleStyle: {
+              fontSize: 17,
+            },
+            headerTintColor: '#e8e8e8',
+            headerTitleAlign: 'center',
+          }}
         />
         <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
-          options={{headerShown: false}}
+          options={{
+            headerTitle: 'Welcome',
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#000B18',
+            },
+            headerTitleStyle: {
+              fontSize: 17,
+            },
+            headerTintColor: '#e8e8e8',
+            headerTitleAlign: 'center',
+          }}
         />
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
-          options={{headerShown: true, title: 'Register'}}
+          options={{
+            headerTitle: 'Register',
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#000B18',
+            },
+            headerTitleStyle: {
+              fontSize: 17,
+            },
+            headerTintColor: '#e8e8e8',
+            headerTitleAlign: 'center',
+          }}
         />
         <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
-          options={{headerShown: true, title: 'Forgot Password'}}
+          options={{
+            headerTitle: 'Forgot Password',
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#000B18',
+            },
+            headerTitleStyle: {
+              fontSize: 17,
+            },
+            headerTintColor: '#e8e8e8',
+            headerTitleAlign: 'center',
+          }}
         />
         <Stack.Screen
           name="ResetPasswordScreen"
           component={ResetPasswordScreen}
-          options={{headerShown: true, title: 'Reset Password'}}
+          options={{
+            headerTitle: 'Reset Password',
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#000B18',
+            },
+            headerTitleStyle: {
+              fontSize: 17,
+            },
+            headerTintColor: '#e8e8e8',
+            headerTitleAlign: 'center',
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

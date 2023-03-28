@@ -1,7 +1,12 @@
 import React from 'react';
-import {GestureResponderEvent, Text, TouchableOpacity} from 'react-native';
+import {
+  GestureResponderEvent,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import BUTTON from '../assets/constants/colorCodes';
-import {componentStyles} from '../styles/ComponentStyle';
+import {styles} from '../styles/ComponentStyle';
 
 interface PropsType {
   children: React.ReactNode;
@@ -36,7 +41,7 @@ const BlueButton = (props: PropsType) => {
             : 1
         }
         style={[
-          componentStyles.BlueButton.buttonView,
+          styles.BlueButton.buttonView,
           emailFieldNotProvided &&
           passwordFieldNotProvided &&
           confirmPasswordFieldNotProvided
@@ -46,7 +51,7 @@ const BlueButton = (props: PropsType) => {
         onPress={props.onPress}>
         <Text
           style={[
-            componentStyles.BlueButton.buttonText,
+            styles.BlueButton.buttonText,
             emailFieldNotProvided &&
             passwordFieldNotProvided &&
             confirmPasswordFieldNotProvided
