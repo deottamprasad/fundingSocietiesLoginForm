@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  StatusBar,
+  ScrollView,
+  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -13,7 +14,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import SvgLogoImg from '../assets/images/logo.svg';
 import {RootStackParamList} from '../components/Main';
 import BlueButton from '../components/BlueButton';
-import {screenStyles} from '../styles/ScreenStyle';
+import {styles} from '../styles/ScreenStyle';
 
 type PropsType = NativeStackScreenProps<RootStackParamList, 'WelcomeScreen'>;
 
@@ -24,11 +25,9 @@ const WelcomeScreen = ({navigation, route}: PropsType) => {
     navigation.navigate('RegisterScreen');
   };
   const handleSignInPress = () => {
-    navigation.navigate('LoginScreen');
+    navigation.navigate('SelectCountryScreen');
   };
-  useEffect(() => {
-    StatusBar.setHidden(true);
-  });
+
   return (
     <LinearGradient
       colors={[
@@ -39,28 +38,27 @@ const WelcomeScreen = ({navigation, route}: PropsType) => {
         '#00498D',
         '#0052A2',
       ]}
-      style={screenStyles.WelcomeScreen.lgContainer}>
-      <View style={screenStyles.WelcomeScreen.container}>
-        {/* <SvgUri height={100} width={100} uri={imageUrl} /> */}
+      style={styles.WelcomeScreen.lgContainer}>
+      <View style={styles.WelcomeScreen.container}>
         <SvgLogoImg height={50} width={100} />
-        <View style={screenStyles.WelcomeScreen.welcomeTextView}>
-          <Text style={screenStyles.WelcomeScreen.welcomeText}>
+        <View style={styles.WelcomeScreen.welcomeTextView}>
+          <Text style={styles.WelcomeScreen.welcomeText}>
             Welcome, Investor!
           </Text>
         </View>
-        <View style={screenStyles.WelcomeScreen.welcomeTextDescView}>
-          <Text style={screenStyles.WelcomeScreen.welcomeTextDesc}>
+        <View style={styles.WelcomeScreen.welcomeTextDescView}>
+          <Text style={styles.WelcomeScreen.welcomeTextDesc}>
             Welcome to the Funding Societies |
           </Text>
-          <Text style={screenStyles.WelcomeScreen.welcomeTextDesc}>
+          <Text style={styles.WelcomeScreen.welcomeTextDesc}>
             Modaiku platform. Great to see you here!
           </Text>
         </View>
         <BlueButton onPress={handleGetStartedPress}>Get Started</BlueButton>
         <TouchableOpacity
-          style={screenStyles.WelcomeScreen.signInView}
+          style={styles.WelcomeScreen.signInView}
           onPress={handleSignInPress}>
-          <Text style={screenStyles.WelcomeScreen.signInText}>Sign In</Text>
+          <Text style={styles.WelcomeScreen.signInText}>Sign In</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>

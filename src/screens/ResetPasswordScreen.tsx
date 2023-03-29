@@ -1,5 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, Text, ScrollView, TextInput, StatusBar} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import BlueButton from '../components/BlueButton';
 import ConfirmPasswordInputField from '../components/ConfirmPasswordInputField';
@@ -7,7 +14,8 @@ import PasswordInputField from '../components/PasswordInputField';
 import {RootStackParamList} from '../components/Main';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import HeaderBar from '../components/HeaderBar';
-import {screenStyles} from '../styles/ScreenStyle';
+import {styles} from '../styles/ScreenStyle';
+import {TextInput} from 'react-native-gesture-handler/lib/typescript/components/GestureComponents';
 
 type PropsType = NativeStackScreenProps<
   RootStackParamList,
@@ -24,31 +32,29 @@ const ResetPasswordScreen = ({navigation, route}: PropsType) => {
   const [onceConfirmPasswordFocused, setOnceConfirmPasswordFocused] =
     useState(false);
   const refConfirmPassword = useRef<TextInput>(null);
+  const refPassword = useRef<TextInput>(null);
 
   const handleResetButtonPress = () => {
     if (isPasswordFieldCorrect && isConfirmPasswordFieldCorrect) {
       navigation.navigate('LoginScreen');
     }
   };
-  useEffect(() => {
-    StatusBar.setHidden(true);
-  });
-
   return (
-    <LinearGradient
-      colors={[
-        '#000B18',
-        '#00172D',
-        '#00264D',
-        '#02386E',
-        '#00498D',
-        '#0052A2',
-      ]}
-      style={screenStyles.ResetPasswordScreen.lgContainer}>
-      <ScrollView>
-        <View style={screenStyles.ResetPasswordScreen.container}>
-          <View style={screenStyles.ResetPasswordScreen.promptTextView}>
-            <Text style={screenStyles.ResetPasswordScreen.promptText}>
+    <ScrollView>
+      <LinearGradient
+        colors={[
+          '#000B18',
+          '#00172D',
+          '#00264D',
+          '#02386E',
+          '#00498D',
+          '#0052A2',
+        ]}
+        style={styles.ResetPasswordScreen.lgContainer}>
+        {/* <HeaderBar navigation={navigation}>Reset Password</HeaderBar> */}
+        <View style={styles.ResetPasswordScreen.container}>
+          <View style={styles.ResetPasswordScreen.promptTextView}>
+            <Text style={styles.ResetPasswordScreen.promptText}>
               Create new password
             </Text>
           </View>
@@ -59,6 +65,7 @@ const ResetPasswordScreen = ({navigation, route}: PropsType) => {
             oncePasswordFocused={oncePasswordFocused}
             setOncePasswordFocused={setOncePasswordFocused}
             refConfirmPassword={refConfirmPassword}
+            refPassword={refPassword}
           />
           <ConfirmPasswordInputField
             confirmPassword={confirmPassword}
@@ -76,8 +83,8 @@ const ResetPasswordScreen = ({navigation, route}: PropsType) => {
             Reset
           </BlueButton>
         </View>
-      </ScrollView>
-    </LinearGradient>
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
