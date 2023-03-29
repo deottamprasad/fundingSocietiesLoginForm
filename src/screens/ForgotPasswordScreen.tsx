@@ -1,19 +1,22 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   Text,
+  StyleSheet,
   Image,
   TouchableOpacity,
+  Keyboard,
   ScrollView,
-  StatusBar,
+  Dimensions,
 } from 'react-native';
+import {TextInput} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 
 import EmailInputField from '../components/EmailInputField';
 import HeaderBar from '../components/HeaderBar';
 import {RootStackParamList} from '../components/Main';
-import {screenStyles} from '../styles/ScreenStyle';
+import {styles} from '../styles/ScreenStyle';
 
 type PropsType = NativeStackScreenProps<
   RootStackParamList,
@@ -25,6 +28,8 @@ const ForgotPasswordScreen = ({navigation, route}: PropsType) => {
   const [onceEmailFocused, setOnceEmailFocused] = useState(false);
   const [isEmailFieldCorrect, setIsEmailFieldCorrect] = useState(false);
 
+  // const refPassword = useRef<TextInput>(null);
+
   const handleNextButtonPress = () => {
     if (isEmailFieldCorrect) {
       setEmail('');
@@ -32,26 +37,24 @@ const ForgotPasswordScreen = ({navigation, route}: PropsType) => {
       navigation.navigate('ResetPasswordScreen');
     }
   };
-  useEffect(() => {
-    StatusBar.setHidden(true);
-  }, []);
 
   return (
-    <LinearGradient
-      colors={[
-        '#000B18',
-        '#00172D',
-        '#00264D',
-        '#02386E',
-        '#00498D',
-        '#0052A2',
-      ]}
-      style={screenStyles.ForgotPasswordScreen.lgContainer}>
-      <ScrollView>
-        <View style={screenStyles.ForgotPasswordScreen.container}>
-          <View style={screenStyles.ForgotPasswordScreen.upperContainer}>
-            <View style={screenStyles.ForgotPasswordScreen.promptTextView}>
-              <Text style={screenStyles.ForgotPasswordScreen.promptText}>
+    <ScrollView>
+      <LinearGradient
+        colors={[
+          '#000B18',
+          '#00172D',
+          '#00264D',
+          '#02386E',
+          '#00498D',
+          '#0052A2',
+        ]}
+        style={styles.ForgotPasswordScreen.lgContainer}>
+        {/* <HeaderBar navigation={navigation}>Forgot Password</HeaderBar> */}
+        <View style={styles.ForgotPasswordScreen.container}>
+          <View style={styles.ForgotPasswordScreen.upperContainer}>
+            <View style={styles.ForgotPasswordScreen.promptTextView}>
+              <Text style={styles.ForgotPasswordScreen.promptText}>
                 Enter your registered email address to reset password
               </Text>
             </View>
@@ -61,27 +64,28 @@ const ForgotPasswordScreen = ({navigation, route}: PropsType) => {
               setEmail={setEmail}
               onceEmailFocused={onceEmailFocused}
               setOnceEmailFocused={setOnceEmailFocused}
+              // refPassword={refPassword}
             />
           </View>
-          <View style={screenStyles.ForgotPasswordScreen.bottomContainer}>
-            <View style={screenStyles.ForgotPasswordScreen.bottomContentsView}>
-              <Text style={screenStyles.ForgotPasswordScreen.continueText}>
+          <View style={styles.ForgotPasswordScreen.bottomContainer}>
+            <View style={styles.ForgotPasswordScreen.bottomContentsView}>
+              <Text style={styles.ForgotPasswordScreen.continueText}>
                 Continue
               </Text>
               <TouchableOpacity
-                style={screenStyles.ForgotPasswordScreen.nextButtonImgView}
-                activeOpacity={isEmailFieldCorrect ? 0.5 : 1}
+                style={styles.ForgotPasswordScreen.nextButtonImgView}
+                activeOpacity={isEmailFieldCorrect ? 0 : 1}
                 onPress={handleNextButtonPress}>
                 <Image
                   source={require('../assets/images/nextButton.png')}
-                  style={screenStyles.ForgotPasswordScreen.nextButtonImg}
+                  style={styles.ForgotPasswordScreen.nextButtonImg}
                 />
               </TouchableOpacity>
             </View>
           </View>
         </View>
-      </ScrollView>
-    </LinearGradient>
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
