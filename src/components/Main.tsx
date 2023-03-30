@@ -9,6 +9,7 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import SelectCountryScreen from '../screens/SelectCountryScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 
 type RootStackParamList = {
@@ -19,6 +20,7 @@ type RootStackParamList = {
   ForgotPasswordScreen: undefined;
   ResetPasswordScreen: undefined;
   SelectCountryScreen: undefined;
+  SettingsScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,6 +32,13 @@ const Main = () => {
         screenOptions={{
           animation: 'slide_from_right',
           statusBarColor: '#000B18',
+          headerStyle: {
+            backgroundColor: '#000B18',
+          },
+          headerTitleStyle: {fontSize: 17},
+          headerTintColor: '#e8e8e8',
+          headerTitleAlign: 'center',
+          headerShown: true,
         }}
         initialRouteName="WelcomeScreen">
         <Stack.Screen
@@ -37,7 +46,6 @@ const Main = () => {
           component={HomeScreen}
           options={{
             headerTitle: 'Home',
-            headerShown: true,
             headerStyle: {
               backgroundColor: '#000B18',
             },
@@ -54,7 +62,6 @@ const Main = () => {
           component={LoginScreen}
           options={{
             headerTitle: 'Sign In',
-            headerShown: true,
             headerStyle: {
               backgroundColor: '#000B18',
             },
@@ -70,15 +77,6 @@ const Main = () => {
           component={WelcomeScreen}
           options={{
             headerTitle: 'Welcome',
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: '#000B18',
-            },
-            headerTitleStyle: {
-              fontSize: 17,
-            },
-            headerTintColor: '#e8e8e8',
-            headerTitleAlign: 'center',
           }}
         />
         <Stack.Screen
@@ -86,15 +84,6 @@ const Main = () => {
           component={RegisterScreen}
           options={{
             headerTitle: 'Register',
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: '#000B18',
-            },
-            headerTitleStyle: {
-              fontSize: 17,
-            },
-            headerTintColor: '#e8e8e8',
-            headerTitleAlign: 'center',
           }}
         />
         <Stack.Screen
@@ -102,15 +91,13 @@ const Main = () => {
           component={ForgotPasswordScreen}
           options={{
             headerTitle: 'Forgot Password',
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: '#000B18',
-            },
-            headerTitleStyle: {
-              fontSize: 17,
-            },
-            headerTintColor: '#e8e8e8',
-            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="SettingsScreen"
+          component={SettingsScreen}
+          options={{
+            headerTitle: 'Settings',
           }}
         />
         <Stack.Screen
@@ -118,15 +105,6 @@ const Main = () => {
           component={ResetPasswordScreen}
           options={{
             headerTitle: 'Reset Password',
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: '#000B18',
-            },
-            headerTitleStyle: {
-              fontSize: 17,
-            },
-            headerTintColor: '#e8e8e8',
-            headerTitleAlign: 'center',
           }}
         />
         <Stack.Screen
@@ -134,15 +112,6 @@ const Main = () => {
           component={SelectCountryScreen}
           options={{
             headerTitle: ' ',
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: '#000B18',
-            },
-            headerTitleStyle: {
-              fontSize: 17,
-            },
-            headerTintColor: '#e8e8e8',
-            headerTitleAlign: 'center',
           }}
         />
       </Stack.Navigator>

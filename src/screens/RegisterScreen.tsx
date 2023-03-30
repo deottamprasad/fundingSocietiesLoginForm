@@ -44,7 +44,7 @@ const RegisterScreen = ({navigation, route}: PropsType) => {
     const resData = await fetchIdAndToken(email, password);
     console.log(resData);
     if (!resData.error) {
-      navigation.navigate('LoginScreen');
+      navigation.navigate('WelcomeScreen');
     }
   };
 

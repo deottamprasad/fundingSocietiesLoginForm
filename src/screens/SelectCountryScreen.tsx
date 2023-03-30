@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  ProviderProps,
-  SetStateAction,
-  useState,
-} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -25,69 +19,82 @@ type PropsType = NativeStackScreenProps<
   RootStackParamList,
   'SelectCountryScreen'
 >;
-// interface PropsType {
-//   navigation: NativeStackScreenProps<RootStackParamList, 'SelectCountryScreen'>;
-// }
-
-interface CountryContextType {
-  selectCountry: boolean;
-  setSelectCountry: Dispatch<SetStateAction<boolean>>;
-}
-
-export const CountryContext = createContext({} as CountryContextType);
 
 const SelectCountryScreen = ({navigation, route}: PropsType) => {
-  const [selectCountry, setSelectCountry] = useState<boolean>(false);
+  const [selectCountry, setSelectCountry] = useState([
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   const handleSignInPress = () => {
-    if (selectCountry) navigation.navigate('LoginScreen');
+    if (
+      selectCountry[0] ||
+      selectCountry[1] ||
+      selectCountry[2] ||
+      selectCountry[3]
+    )
+      navigation.navigate('LoginScreen');
   };
-  //console.log('ok', selectCountry);
 
   return (
-    <CountryContext.Provider value={{selectCountry, setSelectCountry}}>
-      <LinearGradient
-        style={styles.lgcontainer}
-        colors={[
-          '#000B18',
-          '#00172D',
-          '#00264D',
-          '#02386E',
-          '#00498D',
-          '#0052A2',
-        ]}>
-        <View style={styles.titleView}>
-          <SvgLogoImg height={50} width={100} />
-          <Text style={styles.fundingText}>funding</Text>
-          <Text style={styles.societiesText}>societies</Text>
-        </View>
-        <Text style={styles.fundingText}>Select your Country</Text>
-        <Text style={styles.randomText}>
-          Please select the country you'd like to access our platfrom for
-        </Text>
-        <View style={styles.countryView}>
-          <CountryCard
-            text={'Thailand'}
-            img={require('../assets/images/thailand.png')}
-          />
-          <CountryCard
-            text={'Singapore'}
-            img={require('../assets/images/singapore.png')}
-          />
-          <CountryCard
-            text={'Malaysia'}
-            img={require('../assets/images/malaysia.png')}
-          />
-          <CountryCard
-            text={'Indonesia'}
-            img={require('../assets/images/indonesia.png')}
-          />
-        </View>
-        <BlueButton onPress={handleSignInPress} isCountryScreen={true}>
-          Continue
-        </BlueButton>
-      </LinearGradient>
-    </CountryContext.Provider>
+    <LinearGradient
+      style={styles.lgcontainer}
+      colors={[
+        '#000B18',
+        '#00172D',
+        '#00264D',
+        '#02386E',
+        '#00498D',
+        '#0052A2',
+      ]}>
+      <View style={styles.titleView}>
+        <SvgLogoImg height={50} width={100} />
+        <Text style={styles.fundingText}>funding</Text>
+        <Text style={styles.societiesText}>societies</Text>
+      </View>
+      <Text style={styles.fundingText}>Select your Country</Text>
+      <Text style={styles.randomText}>
+        Please select the country you'd like to access our platfrom for
+      </Text>
+      <View style={styles.countryView}>
+        <CountryCard
+          text={'Thailand'}
+          img={require('../assets/images/thailand.png')}
+          selectCountry={selectCountry}
+          setSelectCountry={setSelectCountry}
+        />
+        <CountryCard
+          text={'Singapore'}
+          img={require('../assets/images/singapore.png')}
+          selectCountry={selectCountry}
+          setSelectCountry={setSelectCountry}
+        />
+        <CountryCard
+          text={'Malaysia'}
+          img={require('../assets/images/malaysia.png')}
+          selectCountry={selectCountry}
+          setSelectCountry={setSelectCountry}
+        />
+        <CountryCard
+          text={'Indonesia'}
+          img={require('../assets/images/indonesia.png')}
+          selectCountry={selectCountry}
+          setSelectCountry={setSelectCountry}
+        />
+      </View>
+      <BlueButton
+        onPress={handleSignInPress}
+        isCountryScreen={
+          selectCountry[0] ||
+          selectCountry[1] ||
+          selectCountry[2] ||
+          selectCountry[3]
+        }>
+        Continue
+      </BlueButton>
+    </LinearGradient>
   );
 };
 
@@ -103,7 +110,7 @@ const styles = StyleSheet.create({
   titleView: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: '20%',
+    marginBottom: '7%',
     justifyContent: 'center',
   },
   fundingText: {

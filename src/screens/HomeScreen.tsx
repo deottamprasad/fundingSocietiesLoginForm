@@ -7,19 +7,20 @@ import {
   TouchableOpacity,
   Alert,
   BackHandler,
+  Modal,
 } from 'react-native';
+
 import LinearGradient from 'react-native-linear-gradient';
 
 import SvgLogoImg from '../assets/images/logo.svg';
-import HeaderBar from '../components/HeaderBar';
 import {RootStackParamList} from '../components/Main';
 import {styles} from '../styles/ScreenStyle';
 
 type PropsType = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>;
 
 const HomeScreen = ({navigation, route}: PropsType) => {
-  const handleLogoutPress = () => {
-    navigation.navigate('WelcomeScreen');
+  const handleSettingsPress = () => {
+    navigation.navigate('SettingsScreen');
   };
   // navigation.addListener('beforeRemove', e => {
   //   e.preventDefault();
@@ -74,8 +75,8 @@ const HomeScreen = ({navigation, route}: PropsType) => {
         <Text style={styles.HomeScreen.homeText}>Home Page</Text>
         <TouchableOpacity
           style={styles.HomeScreen.accountView}
-          onPress={handleLogoutPress}>
-          <Text style={styles.HomeScreen.accountText}>logout</Text>
+          onPress={handleSettingsPress}>
+          <Text style={styles.HomeScreen.accountText}>settings</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>

@@ -22,7 +22,7 @@ const WelcomeScreen = ({navigation, route}: PropsType) => {
   //   const imageUrl =
   //     'https://fundingsocieties.com/static/d3851783fa60bb00b8105677df77307068fdbe5838c4e236aa3baa5bf8da13c1.svg';
   const handleGetStartedPress = () => {
-    navigation.navigate('RegisterScreen');
+    navigation.navigate('SelectCountryScreen');
   };
   const handleSignInPress = () => {
     navigation.navigate('SelectCountryScreen');
