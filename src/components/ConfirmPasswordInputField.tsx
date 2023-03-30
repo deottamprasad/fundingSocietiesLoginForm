@@ -23,7 +23,6 @@ interface PropsType {
 }
 
 const ConfirmPasswordInputField = (props: PropsType) => {
-  const {refConfirmPassword} = props;
   const {confirmPassword, setConfirmPassword} = props;
   const [isConfirmEyeButtonOn, setIsConfirmEyeButtonOn] = useState(true);
   const [isConfirmSecuredEntry, setIsConfirmSecuredEntry] = useState(true);
@@ -38,7 +37,6 @@ const ConfirmPasswordInputField = (props: PropsType) => {
   };
   const handleConfirmPasswordChange = (txt: string) => {
     setConfirmPassword(txt);
-    // if (!onceFocused) setOnceFocused(true);
   };
   useEffect(() => {
     setIsConfirmSecuredEntry(isConfirmEyeButtonOn);
@@ -56,12 +54,10 @@ const ConfirmPasswordInputField = (props: PropsType) => {
         setValidationConfirmPassword('');
         props.setIsConfirmPasswordFieldCorrect(true);
       }
+    } else {
+      setValidationConfirmPassword('');
     }
   }, [onceFocused]);
-  const borderColor = () => {
-    if (validationConfirmPassword == '') return 'white';
-    else return '#ff9933';
-  };
   return (
     <>
       {confirmPassword.length > 0 && (
@@ -75,7 +71,11 @@ const ConfirmPasswordInputField = (props: PropsType) => {
           style={[
             styles.ConfirmPasswordInputField.inputField,
             confirmPassword.length > 0 ? {width: '85%'} : {width: '90%'},
-            {borderBottomColor: borderColor()},
+            {
+              borderBottomColor: validationConfirmPassword
+                ? '#ff9933'
+                : 'white',
+            },
           ]}
           placeholderTextColor="white"
           keyboardType="ascii-capable"
@@ -83,16 +83,22 @@ const ConfirmPasswordInputField = (props: PropsType) => {
           textContentType="password"
           value={confirmPassword}
           onChangeText={handleConfirmPasswordChange}
-          onBlur={() => setOnceFocused(true)}
+          ref={props.refConfirmPassword}
+          onBlur={() => {
+            setOnceFocused(true);
+          }}
           onFocus={() => setOnceFocused(false)}
-          ref={refConfirmPassword}
         />
         {confirmPassword.length > 0 && isConfirmEyeButtonOn && (
           <TouchableOpacity
             activeOpacity={0.9}
             style={[
               styles.ConfirmPasswordInputField.eyeIconView,
-              {borderBottomColor: borderColor()},
+              {
+                borderBottomColor: validationConfirmPassword
+                  ? '#ff9933'
+                  : 'white',
+              },
             ]}
             onPress={handleConfirmEyeButtonPress}>
             <Icon
@@ -108,7 +114,11 @@ const ConfirmPasswordInputField = (props: PropsType) => {
             activeOpacity={0.9}
             style={[
               styles.ConfirmPasswordInputField.eyeIconView,
-              {borderBottomColor: borderColor()},
+              {
+                borderBottomColor: validationConfirmPassword
+                  ? '#ff9933'
+                  : 'white',
+              },
             ]}
             onPress={handleConfirmEyeButtonPress}>
             <Icon

@@ -1,18 +1,11 @@
-import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 // import {SvgUri} from 'react-native-svg';
 import SvgLogoImg from '../assets/images/logo.svg';
-import {RootStackParamList} from '../components/Main';
+import {RootStackParamList} from '../navigation/StackNavigator';
 import BlueButton from '../components/BlueButton';
 import {styles} from '../styles/ScreenStyle';
 
@@ -27,7 +20,6 @@ const WelcomeScreen = ({navigation, route}: PropsType) => {
   const handleSignInPress = () => {
     navigation.navigate('SelectCountryScreen');
   };
-
   return (
     <LinearGradient
       colors={[
@@ -40,6 +32,7 @@ const WelcomeScreen = ({navigation, route}: PropsType) => {
       ]}
       style={styles.WelcomeScreen.lgContainer}>
       <View style={styles.WelcomeScreen.container}>
+        {/* <SvgUri height={100} width={100} uri={imageUrl} /> */}
         <SvgLogoImg height={50} width={100} />
         <View style={styles.WelcomeScreen.welcomeTextView}>
           <Text style={styles.WelcomeScreen.welcomeText}>

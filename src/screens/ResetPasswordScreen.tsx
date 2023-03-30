@@ -1,21 +1,12 @@
-import React, {useState, useRef} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, ScrollView, TextInput, StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import BlueButton from '../components/BlueButton';
 import ConfirmPasswordInputField from '../components/ConfirmPasswordInputField';
 import PasswordInputField from '../components/PasswordInputField';
-import {RootStackParamList} from '../components/Main';
+import {RootStackParamList} from '../navigation/StackNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import HeaderBar from '../components/HeaderBar';
 import {styles} from '../styles/ScreenStyle';
-import {TextInput} from 'react-native-gesture-handler/lib/typescript/components/GestureComponents';
 
 type PropsType = NativeStackScreenProps<
   RootStackParamList,
@@ -32,26 +23,25 @@ const ResetPasswordScreen = ({navigation, route}: PropsType) => {
   const [onceConfirmPasswordFocused, setOnceConfirmPasswordFocused] =
     useState(false);
   const refConfirmPassword = useRef<TextInput>(null);
-  const refPassword = useRef<TextInput>(null);
 
   const handleResetButtonPress = () => {
     if (isPasswordFieldCorrect && isConfirmPasswordFieldCorrect) {
       navigation.navigate('LoginScreen');
     }
   };
+
   return (
-    <ScrollView>
-      <LinearGradient
-        colors={[
-          '#000B18',
-          '#00172D',
-          '#00264D',
-          '#02386E',
-          '#00498D',
-          '#0052A2',
-        ]}
-        style={styles.ResetPasswordScreen.lgContainer}>
-        {/* <HeaderBar navigation={navigation}>Reset Password</HeaderBar> */}
+    <LinearGradient
+      colors={[
+        '#000B18',
+        '#00172D',
+        '#00264D',
+        '#02386E',
+        '#00498D',
+        '#0052A2',
+      ]}
+      style={styles.ResetPasswordScreen.lgContainer}>
+      <ScrollView>
         <View style={styles.ResetPasswordScreen.container}>
           <View style={styles.ResetPasswordScreen.promptTextView}>
             <Text style={styles.ResetPasswordScreen.promptText}>
@@ -65,7 +55,6 @@ const ResetPasswordScreen = ({navigation, route}: PropsType) => {
             oncePasswordFocused={oncePasswordFocused}
             setOncePasswordFocused={setOncePasswordFocused}
             refConfirmPassword={refConfirmPassword}
-            refPassword={refPassword}
           />
           <ConfirmPasswordInputField
             confirmPassword={confirmPassword}
@@ -83,8 +72,8 @@ const ResetPasswordScreen = ({navigation, route}: PropsType) => {
             Reset
           </BlueButton>
         </View>
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 

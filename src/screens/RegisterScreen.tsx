@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Dimensions,
   Alert,
   TextInput,
+  StatusBar,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -16,9 +17,8 @@ import BlueButton from '../components/BlueButton';
 import ConfirmPasswordInputField from '../components/ConfirmPasswordInputField';
 import EmailInputField from '../components/EmailInputField';
 import PasswordInputField from '../components/PasswordInputField';
-import {RootStackParamList} from '../components/Main';
+import {RootStackParamList} from '../navigation/StackNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import HeaderBar from '../components/HeaderBar';
 import {fetchIdAndToken} from '../apiCalls/apiCalls';
 import {styles} from '../styles/ScreenStyle';
 
@@ -37,8 +37,8 @@ const RegisterScreen = ({navigation, route}: PropsType) => {
   const [onceConfirmPasswordFocused, setOnceConfirmPasswordFocused] =
     useState(false);
 
-  const refConfirmPassword = useRef<TextInput>(null);
   const refPassword = useRef<TextInput>(null);
+  const refConfirmPassword = useRef<TextInput>(null);
 
   const handleIdAndTokenReceived = async () => {
     const resData = await fetchIdAndToken(email, password);
@@ -64,18 +64,17 @@ const RegisterScreen = ({navigation, route}: PropsType) => {
     setOnceConfirmPasswordFocused(false);
   };
   return (
-    <ScrollView>
-      <LinearGradient
-        colors={[
-          '#000B18',
-          '#00172D',
-          '#00264D',
-          '#02386E',
-          '#00498D',
-          '#0052A2',
-        ]}
-        style={styles.RegisterScreen.lgContainer}>
-        {/* <HeaderBar navigation={navigation}>Register</HeaderBar> */}
+    <LinearGradient
+      colors={[
+        '#000B18',
+        '#00172D',
+        '#00264D',
+        '#02386E',
+        '#00498D',
+        '#0052A2',
+      ]}
+      style={styles.RegisterScreen.lgContainer}>
+      <ScrollView>
         <View style={styles.RegisterScreen.container}>
           <View style={styles.RegisterScreen.titleView}>
             <SvgLogoImg height={40} width={40} />
@@ -99,8 +98,8 @@ const RegisterScreen = ({navigation, route}: PropsType) => {
               setIsPasswordFieldCorrect={setIsPasswordFieldCorrect}
               oncePasswordFocused={oncePasswordFocused}
               setOncePasswordFocused={setOncePasswordFocused}
-              refConfirmPassword={refConfirmPassword}
               refPassword={refPassword}
+              refConfirmPassword={refConfirmPassword}
             />
             <ConfirmPasswordInputField
               confirmPassword={confirmPassword}
@@ -122,8 +121,8 @@ const RegisterScreen = ({navigation, route}: PropsType) => {
             </BlueButton>
           </View>
         </View>
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 

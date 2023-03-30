@@ -8,7 +8,7 @@ export const styles = {
       justifyContent: 'center',
       height: 35,
       width: '90%',
-      borderRadius: 10,
+      borderRadius: 5,
       marginTop: '2%',
       marginBottom: '4%',
     },
@@ -62,24 +62,6 @@ export const styles = {
       borderBottomWidth: 1,
       padding: 0,
       marginTop: 0,
-    },
-  }),
-  HeaderBar: StyleSheet.create({
-    headerBar: {
-      width: '100%',
-      height: '5%',
-      paddingHorizontal: '5%',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    leftArrowIcon: {
-      position: 'absolute',
-      right: '100%',
-    },
-    titleText: {
-      color: 'white',
-      fontSize: 15,
     },
   }),
   InvalidText: StyleSheet.create({
