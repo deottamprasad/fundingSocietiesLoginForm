@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text, Image, StyleSheet, View} from 'react-native';
-import {componentStyles} from '../styles/ComponentStyle';
+import {Text, Image, View} from 'react-native';
+import {styles} from '../styles/ComponentStyle';
 
 interface PropsType {
   children: React.ReactNode;
@@ -8,16 +8,14 @@ interface PropsType {
 
 const InvalidText = (props: PropsType) => {
   return (
-    <View style={componentStyles.InvalidText.invalidTextView}>
+    <View style={styles.InvalidText.invalidTextView}>
       {props.children && (
         <Image
           source={require('../assets/images/invalidInput.jpg')}
-          style={componentStyles.InvalidText.invalidInputImg}
+          style={styles.InvalidText.invalidInputImg}
         />
       )}
-      <Text style={componentStyles.InvalidText.invalidText}>
-        {props.children}
-      </Text>
+      <Text style={styles.InvalidText.invalidText}>{props.children}</Text>
     </View>
   );
 };

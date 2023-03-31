@@ -1,17 +1,17 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet, useWindowDimensions} from 'react-native';
 
-export const screenStyles = {
+export const styles = {
   ForgotPasswordScreen: StyleSheet.create({
     lgContainer: {
       flex: 1,
+      height: Dimensions.get('window').height,
     },
     container: {
       flex: 1,
-      paddingTop: '2%',
-      height: Dimensions.get('window').height,
+      paddingTop: '10%',
     },
     upperContainer: {
-      flex: 7,
+      flex: 5,
       alignItems: 'center',
       borderBottomColor: 'white',
       borderBottomWidth: 0.4,
@@ -24,12 +24,13 @@ export const screenStyles = {
       color: 'white',
     },
     bottomContainer: {
-      flex: 2,
+      flex: 1,
     },
     bottomContentsView: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'flex-end',
+      // alignItems: 'flex-end',
       paddingTop: '2%',
     },
     continueText: {
@@ -88,13 +89,13 @@ export const screenStyles = {
   }),
   LoginScreen: StyleSheet.create({
     lgContainer: {
-      flex: 1
+      flex: 1,
+      height: Dimensions.get('window').height,
     },
     container: {
       flex: 1,
       paddingTop: '20%',
       alignItems: 'center',
-      height: Dimensions.get('window').height,
     },
     titleView: {
       flexDirection: 'row',
@@ -134,12 +135,12 @@ export const screenStyles = {
   RegisterScreen: StyleSheet.create({
     lgContainer: {
       flex: 1,
+      height: Dimensions.get('window').height,
     },
     container: {
       flex: 1,
       alignItems: 'center',
       paddingTop: '20%',
-      height: Dimensions.get('window').height,
     },
     titleView: {
       flexDirection: 'row',
@@ -170,12 +171,12 @@ export const screenStyles = {
   ResetPasswordScreen: StyleSheet.create({
     lgContainer: {
       flex: 1,
+      height: Dimensions.get('window').height,
     },
     container: {
-      flex: 1,
       alignItems: 'center',
+      justifyContent: 'space-between',
       marginTop: '5%',
-      height: Dimensions.get('window').height,
     },
     promptTextView: {
       width: '90%',
@@ -189,11 +190,14 @@ export const screenStyles = {
   WelcomeScreen: StyleSheet.create({
     lgContainer: {
       flex: 1,
+      height: Dimensions.get('window').height,
+      // marginBottom: '10%',
     },
     container: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'flex-end',
+      //  / marginBottom: '15%',
     },
     welcomeTextView: {
       marginTop: '5%',
@@ -214,9 +218,13 @@ export const screenStyles = {
     },
     signInView: {
       marginVertical: '5%',
+      width: '80%',
+      height: '5%',
+      justifyContent: 'center',
     },
     signInText: {
       color: 'white',
+      textAlign: 'center',
     },
   }),
 };

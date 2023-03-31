@@ -1,8 +1,8 @@
-import React, {RefObject, useCallback, useEffect, useState} from 'react';
+import React, {RefObject, useEffect, useState} from 'react';
 import {SetStateAction} from 'react';
 import {Dispatch} from 'react';
 import {Text, TextInput, View} from 'react-native';
-import {componentStyles} from '../styles/ComponentStyle';
+import {styles} from '../styles/ComponentStyle';
 import InvalidText from './InvalidText';
 
 interface PropsType {
@@ -18,6 +18,7 @@ const EmailInputField = (props: PropsType) => {
   const {email, setEmail} = props;
   const {onceEmailFocused: onceFocused, setOnceEmailFocused: setOnceFocused} =
     props;
+  const {refPassword} = props;
   const [validationEmail, setValidationEmail] = useState('');
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   useEffect(() => {});
@@ -39,30 +40,29 @@ const EmailInputField = (props: PropsType) => {
       setValidationEmail('');
     }
   }, [onceFocused]);
+
+  const borderColor = () => {
+    if (validationEmail == '') return 'white';
+    else return '#ff9933';
+  };
   return (
     <>
       {email.length > 0 && (
-        <Text style={componentStyles.EmailInputField.emailLabel}>Email</Text>
+        <Text style={styles.EmailInputField.emailLabel}>Email</Text>
       )}
       <TextInput
         placeholder="Email"
         style={[
-          componentStyles.EmailInputField.inputField,
-          {borderBottomColor: validationEmail ? '#ff9933' : 'white'},
+          styles.EmailInputField.inputField,
+          {borderBottomColor: borderColor()},
         ]}
         placeholderTextColor="white"
         keyboardType="email-address"
         value={email}
         onChangeText={handleEmailChange}
-        onSubmitEditing={() => {
-          props.refPassword?.current?.focus();
-        }}
-        onBlur={() => {
-          setOnceFocused(true);
-        }}
-        onFocus={() => {
-          setOnceFocused(false);
-        }}
+        onSubmitEditing={() => refPassword?.current?.focus()}
+        onBlur={() => setOnceFocused(true)}
+        onFocus={() => setOnceFocused(false)}
       />
       <InvalidText>{validationEmail}</InvalidText>
     </>

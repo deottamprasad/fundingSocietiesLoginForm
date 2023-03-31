@@ -4,21 +4,19 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
   TextInput,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {StatusBar} from 'react-native';
 
 import SvgLogoImg from '../assets/images/logo.svg';
 import BlueButton from '../components/BlueButton';
 import EmailInputField from '../components/EmailInputField';
 import PasswordInputField from '../components/PasswordInputField';
-import {RootStackParamList} from '../components/Main';
+import {RootStackParamList} from '../navigation/StackNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-// import HeaderBar from '../components/HeaderBar';
-// import Icon from 'react-native-vector-icons/AntDesign';
 import {fetchToken} from '../apiCalls/apiCalls';
-import {screenStyles} from '../styles/ScreenStyle';
+import {styles} from '../styles/ScreenStyle';
 
 type PropsType = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
@@ -29,21 +27,26 @@ const LoginScreen = ({navigation, route}: PropsType) => {
   const [password, setPassword] = useState('');
   const [isEmailFieldCorrect, setIsEmailFieldCorrect] = useState(false);
   const [isPasswordFieldCorrect, setIsPasswordFieldCorrect] = useState(false);
+  const [loading, setLoading] = useState<React.ReactNode>(null);
+
   const refPassword = useRef<TextInput>(null);
+  const refConfirmPassword = useRef<TextInput>(null);
 
   const handleTokenReceived = async () => {
     const resData = await fetchToken(email, password);
-    console.log(resData);
     if (!resData.error) {
-      navigation.navigate('HomeScreen');
+      navigation.navigate('MyTab');
+    } else {
+      setLoading(null);
     }
+    setEmail('');
+    setPassword('');
   };
 
   const handleSignInPress = () => {
     if (isEmailFieldCorrect && isPasswordFieldCorrect) {
+      setLoading(<ActivityIndicator size="large" color="#0052A2" />);
       handleTokenReceived();
-      setEmail('');
-      setPassword('');
       setOnceEmailFocused(false);
       setOncePasswordFocused(false);
     }
@@ -51,50 +54,35 @@ const LoginScreen = ({navigation, route}: PropsType) => {
   const handleForgotPasswordPress = () => {
     navigation.navigate('ForgotPasswordScreen');
   };
+
   useEffect(() => {
     setEmail('');
     setPassword('');
-    StatusBar.setHidden(true);
+    setLoading(null);
   }, []);
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerLeft: () => (
-  //       <Icon
-  //         name="arrowleft"
-  //         size={17}
-  //         color="white"
-  //         style={{
-  //           position: 'absolute',
-  //           right: '100%',
-  //         }}
-  //         onPress={() => navigation.goBack()}
-  //       />
-  //     ),
-  //   });
-  // }, [navigation]);
+
   return (
-    <LinearGradient
-      colors={[
-        '#000B18',
-        '#00172D',
-        '#00264D',
-        '#02386E',
-        '#00498D',
-        '#0052A2',
-      ]}
-      style={screenStyles.LoginScreen.lgContainer}>
-      <ScrollView>
-        <View style={screenStyles.LoginScreen.container}>
-          <View style={screenStyles.LoginScreen.titleView}>
+    <ScrollView>
+      <LinearGradient
+        colors={[
+          '#000B18',
+          '#00172D',
+          '#00264D',
+          '#02386E',
+          '#00498D',
+          '#0052A2',
+        ]}
+        style={styles.LoginScreen.lgContainer}>
+        {loading}
+        <View style={styles.LoginScreen.container}>
+          <View style={styles.LoginScreen.titleView}>
             <SvgLogoImg height={40} width={40} />
-            <View style={screenStyles.LoginScreen.fsTitleView}>
-              <Text style={screenStyles.LoginScreen.fundingText}>funding</Text>
-              <Text style={screenStyles.LoginScreen.societiesText}>
-                societies
-              </Text>
+            <View style={styles.LoginScreen.fsTitleView}>
+              <Text style={styles.LoginScreen.fundingText}>funding</Text>
+              <Text style={styles.LoginScreen.societiesText}>societies</Text>
             </View>
           </View>
-          <View style={screenStyles.LoginScreen.inputFieldsView}>
+          <View style={styles.LoginScreen.inputFieldsView}>
             <EmailInputField
               setIsEmailFieldCorrect={setIsEmailFieldCorrect}
               email={email}
@@ -110,6 +98,7 @@ const LoginScreen = ({navigation, route}: PropsType) => {
               oncePasswordFocused={oncePasswordFocused}
               setOncePasswordFocused={setOncePasswordFocused}
               isLoginScreen={true}
+              refConfirmPassword={refConfirmPassword}
               refPassword={refPassword}
             />
           </View>
@@ -121,16 +110,16 @@ const LoginScreen = ({navigation, route}: PropsType) => {
           </BlueButton>
           <TouchableOpacity
             activeOpacity={0.9}
-            style={screenStyles.LoginScreen.forgotPassTextView}>
+            style={styles.LoginScreen.forgotPassTextView}>
             <Text
-              style={screenStyles.LoginScreen.forgotPassText}
+              style={styles.LoginScreen.forgotPassText}
               onPress={handleForgotPasswordPress}>
               Forgot password?
             </Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </LinearGradient>
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
