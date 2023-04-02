@@ -1,15 +1,11 @@
-import React, {
-  MutableRefObject,
-  RefObject,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, {RefObject, useEffect, useState} from 'react';
 import {SetStateAction} from 'react';
 import {Dispatch} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
-import {styles} from '../styles/ComponentStyle';
+import {Text, TextInput} from 'react-native';
+
 import InvalidText from './InvalidText';
+
+import {styles} from '../styles/ComponentStyle';
 
 interface PropsType {
   setIsEmailFieldCorrect: Dispatch<SetStateAction<boolean>>;
@@ -24,16 +20,12 @@ const EmailInputField = (props: PropsType) => {
   const {email, setEmail} = props;
   const {onceEmailFocused: onceFocused, setOnceEmailFocused: setOnceFocused} =
     props;
-  const {refPassword} = props;
   const [validationEmail, setValidationEmail] = useState('');
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   useEffect(() => {});
   const handleEmailChange = (txt: string) => {
     setEmail(txt);
   };
-
-  //console.log(onceFocused, validationEmail);
-
   useEffect(() => {
     props.setIsEmailFieldCorrect(false);
     if (onceFocused) {
@@ -49,11 +41,6 @@ const EmailInputField = (props: PropsType) => {
       setValidationEmail('');
     }
   }, [onceFocused]);
-
-  const borderColor = () => {
-    if (validationEmail == '') return 'white';
-    else return '#ff9933';
-  };
   return (
     <>
       {email.length > 0 && (
@@ -63,17 +50,21 @@ const EmailInputField = (props: PropsType) => {
         placeholder="Email"
         style={[
           styles.EmailInputField.inputField,
-          {borderBottomColor: borderColor()},
+          {borderBottomColor: validationEmail ? '#ff9933' : 'white'},
         ]}
         placeholderTextColor="white"
         keyboardType="email-address"
         value={email}
         onChangeText={handleEmailChange}
-        //returnKeyType="next"
-        onSubmitEditing={() => refPassword?.current?.focus()}
-        //blurOnSubmit={false}
-        onBlur={() => setOnceFocused(true)}
-        onFocus={() => setOnceFocused(false)}
+        onSubmitEditing={() => {
+          props.refPassword?.current?.focus();
+        }}
+        onBlur={() => {
+          setOnceFocused(true);
+        }}
+        onFocus={() => {
+          setOnceFocused(false);
+        }}
       />
       <InvalidText>{validationEmail}</InvalidText>
     </>

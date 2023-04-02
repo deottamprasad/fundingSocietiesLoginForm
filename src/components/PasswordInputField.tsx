@@ -1,15 +1,11 @@
 import React, {RefObject, SetStateAction, useEffect, useState} from 'react';
 import {Dispatch} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {styles} from '../styles/ComponentStyle';
+
 import InvalidText from './InvalidText';
+
+import {styles} from '../styles/ComponentStyle';
 
 interface PropsType {
   setIsPasswordFieldCorrect: Dispatch<SetStateAction<boolean>>;
@@ -18,8 +14,8 @@ interface PropsType {
   oncePasswordFocused: boolean;
   setOncePasswordFocused: Dispatch<SetStateAction<boolean>>;
   isLoginScreen?: boolean;
-  refConfirmPassword: RefObject<TextInput>;
-  refPassword: RefObject<TextInput>;
+  refPassword?: RefObject<TextInput>;
+  refConfirmPassword?: RefObject<TextInput>;
 }
 
 const PasswordInputField = (props: PropsType) => {
@@ -34,19 +30,18 @@ const PasswordInputField = (props: PropsType) => {
   const passwordRegex =
     /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
-  const {refConfirmPassword} = props;
-  const {refPassword} = props;
-  console.log(props.isLoginScreen);
   const handleEyeButtonPress = () => {
     setIsEyeButtonOn(prevEyeButton => !prevEyeButton);
   };
+
   const handlePasswordChange = (txt: string) => {
     setPassword(txt);
-    //if (!onceFocused) setOnceFocused(true);
   };
+
   useEffect(() => {
     setIsSecuredEntry(isEyeButtonOn);
   }, [isEyeButtonOn]);
+
   useEffect(() => {
     props.setIsPasswordFieldCorrect(false);
     if (onceFocused) {
@@ -64,13 +59,11 @@ const PasswordInputField = (props: PropsType) => {
         setValidationPassword('');
         props.setIsPasswordFieldCorrect(true);
       }
+    } else {
+      setValidationPassword('');
     }
   }, [onceFocused]);
 
-  const borderColor = () => {
-    if (validationPassword == '') return 'white';
-    else return '#ff9933';
-  };
   return (
     <>
       {password.length > 0 && (
@@ -82,7 +75,7 @@ const PasswordInputField = (props: PropsType) => {
           style={[
             styles.PasswordInputField.inputField,
             password.length > 0 ? {width: '85%'} : {width: '90%'},
-            {borderBottomColor: borderColor()},
+            {borderBottomColor: validationPassword ? '#ff9933' : 'white'},
           ]}
           placeholderTextColor="white"
           keyboardType="ascii-capable"
@@ -90,19 +83,23 @@ const PasswordInputField = (props: PropsType) => {
           textContentType="password"
           value={password}
           onChangeText={handlePasswordChange}
-          ref={refPassword}
-          onSubmitEditing={() => refConfirmPassword.current?.focus()}
-          onBlur={() => setOnceFocused(true)}
-          onFocus={() => setOnceFocused(false)}
-          blurOnSubmit={props.isLoginScreen || false}
-          //returnKeyType="next"
+          ref={props.refPassword}
+          onSubmitEditing={() => {
+            props.refConfirmPassword?.current?.focus();
+          }}
+          onBlur={() => {
+            setOnceFocused(true);
+          }}
+          onFocus={() => {
+            setOnceFocused(false);
+          }}
         />
         {password.length > 0 && isEyeButtonOn && (
           <TouchableOpacity
             activeOpacity={0.9}
             style={[
               styles.PasswordInputField.eyeIconView,
-              {borderBottomColor: borderColor()},
+              {borderBottomColor: validationPassword ? '#ff9933' : 'white'},
             ]}
             onPress={handleEyeButtonPress}>
             <Icon
@@ -118,7 +115,7 @@ const PasswordInputField = (props: PropsType) => {
             activeOpacity={0.9}
             style={[
               styles.PasswordInputField.eyeIconView,
-              {borderBottomColor: borderColor()},
+              {borderBottomColor: validationPassword ? '#ff9933' : 'white'},
             ]}
             onPress={handleEyeButtonPress}>
             <Icon
@@ -134,4 +131,5 @@ const PasswordInputField = (props: PropsType) => {
     </>
   );
 };
+
 export default PasswordInputField;

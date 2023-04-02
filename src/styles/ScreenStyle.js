@@ -1,17 +1,17 @@
-import {Dimensions, StyleSheet, useWindowDimensions} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 export const styles = {
   ForgotPasswordScreen: StyleSheet.create({
     lgContainer: {
       flex: 1,
-      height: Dimensions.get('window').height,
     },
     container: {
       flex: 1,
-      paddingTop: '10%',
+      paddingTop: '2%',
+      height: Dimensions.get('window').height,
     },
     upperContainer: {
-      flex: 5,
+      flex: 7,
       alignItems: 'center',
       borderBottomColor: 'white',
       borderBottomWidth: 0.4,
@@ -24,13 +24,12 @@ export const styles = {
       color: 'white',
     },
     bottomContainer: {
-      flex: 1,
+      flex: 2,
     },
     bottomContentsView: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      // alignItems: 'flex-end',
       paddingTop: '2%',
     },
     continueText: {
@@ -89,13 +88,13 @@ export const styles = {
   }),
   LoginScreen: StyleSheet.create({
     lgContainer: {
-      flex: 1,
-      height: Dimensions.get('window').height,
+      flex: 1
     },
     container: {
       flex: 1,
       paddingTop: '20%',
       alignItems: 'center',
+      height: Dimensions.get('window').height,
     },
     titleView: {
       flexDirection: 'row',
@@ -135,12 +134,12 @@ export const styles = {
   RegisterScreen: StyleSheet.create({
     lgContainer: {
       flex: 1,
-      height: Dimensions.get('window').height,
     },
     container: {
       flex: 1,
       alignItems: 'center',
       paddingTop: '20%',
+      height: Dimensions.get('window').height,
     },
     titleView: {
       flexDirection: 'row',
@@ -171,12 +170,12 @@ export const styles = {
   ResetPasswordScreen: StyleSheet.create({
     lgContainer: {
       flex: 1,
-      height: Dimensions.get('window').height,
     },
     container: {
+      flex: 1,
       alignItems: 'center',
-      justifyContent: 'space-between',
       marginTop: '5%',
+      height: Dimensions.get('window').height,
     },
     promptTextView: {
       width: '90%',
@@ -190,14 +189,11 @@ export const styles = {
   WelcomeScreen: StyleSheet.create({
     lgContainer: {
       flex: 1,
-      height: Dimensions.get('window').height,
-      // marginBottom: '10%',
     },
     container: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'flex-end',
-      //  / marginBottom: '15%',
     },
     welcomeTextView: {
       marginTop: '5%',
@@ -218,13 +214,96 @@ export const styles = {
     },
     signInView: {
       marginVertical: '5%',
-      width: '80%',
-      height: '5%',
-      justifyContent: 'center',
     },
     signInText: {
       color: 'white',
+    },
+  }),
+  SettingScreen: StyleSheet.create({
+    container: {
+      backgroundColor: '#00264D',
+      flex: 1,
+      paddingHorizontal: '5%',
+    },
+    headerText: {
+      color: 'white',
+      fontSize: 18,
+      fontWeight: '400',
+      marginBottom: '0.5%',
+      padding: '2%',
+    },
+    tileView: {
+      flex: 1,
+      backgroundColor: 'rgba(255,255,255,0.2)',
+    },
+  
+    buttonView: {
+      flex: 1,
+      borderColor: 'rgba(255,255,255,0.3)',
+      flexDirection: 'row',
+      padding: '3%',
+    },
+    titleView: {
+      marginHorizontal: '5%',
+      paddingRight: '10%',
+    },
+    titleText: {
+      color: 'white',
+      fontSize: 16,
+      fontWeight: '700',
+      margin: '1%',
+    },
+    descriptionText: {
+      color: 'white',
+      fontSize: 13,
+      fontWeight: '200',
+      margin: '1%',
+    },
+    img: {
+      height: 20,
+      width: 20,
+      alignSelf: 'flex-start',
+      marginLeft: '3%',
+      marginTop: '1%',
+    },
+  }),
+  SelectCountryScreen : StyleSheet.create({
+    lgcontainer: {
+      flex: 1,
+      height: Dimensions.get('window').height,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    titleView: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: '7%',
+      justifyContent: 'center',
+    },
+    fundingText: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 23,
+      marginRight: 5,
+    },
+    societiesText: {
+      color: 'white',
+      fontSize: 23,
+      fontWeight: '300',
+    },
+    randomText: {
+      color: '#f1f1f1',
+      fontSize: 15,
+      fontWeight: '200',
+      marginTop: '5%',
       textAlign: 'center',
+    },
+    countryView: {
+      flex: 1,
+      justifyContent: 'center',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignContent: 'center',
     },
   }),
 };
