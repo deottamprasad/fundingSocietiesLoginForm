@@ -2,14 +2,10 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
-  Dimensions,
   ScrollView,
-  Alert,
-  ActivityIndicator,
   TextInput,
-  StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -17,9 +13,9 @@ import SvgLogoImg from '../assets/images/logo.svg';
 import BlueButton from '../components/BlueButton';
 import EmailInputField from '../components/EmailInputField';
 import PasswordInputField from '../components/PasswordInputField';
-import {RootStackParamList} from '../components/Main';
+import {RootStackParamList} from '../navigation/StackNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import HeaderBar from '../components/HeaderBar';
+
 import {fetchToken} from '../apiCalls/apiCalls';
 import {styles} from '../styles/ScreenStyle';
 
@@ -32,16 +28,14 @@ const LoginScreen = ({navigation, route}: PropsType) => {
   const [password, setPassword] = useState('');
   const [isEmailFieldCorrect, setIsEmailFieldCorrect] = useState(false);
   const [isPasswordFieldCorrect, setIsPasswordFieldCorrect] = useState(false);
-  const [loading, setLoading] = useState<React.ReactNode>(null);
-
   const refPassword = useRef<TextInput>(null);
-  const refConfirmPassword = useRef<TextInput>(null);
+  const [loading, setLoading] = useState<React.ReactNode>(null);
 
   const handleTokenReceived = async () => {
     const resData = await fetchToken(email, password);
     console.log(resData);
     if (!resData.error) {
-      navigation.navigate('HomeScreen');
+      navigation.navigate('MyTab');
     } else {
       setLoading(null);
     }
@@ -51,7 +45,7 @@ const LoginScreen = ({navigation, route}: PropsType) => {
 
   const handleSignInPress = () => {
     if (isEmailFieldCorrect && isPasswordFieldCorrect) {
-      setLoading(<ActivityIndicator size="large" color="#0052A2" />);
+      setLoading(<ActivityIndicator size="large" color="#005282" />);
       handleTokenReceived();
       setOnceEmailFocused(false);
       setOncePasswordFocused(false);
@@ -60,7 +54,6 @@ const LoginScreen = ({navigation, route}: PropsType) => {
   const handleForgotPasswordPress = () => {
     navigation.navigate('ForgotPasswordScreen');
   };
-
   useEffect(() => {
     setEmail('');
     setPassword('');
@@ -68,19 +61,18 @@ const LoginScreen = ({navigation, route}: PropsType) => {
   }, []);
 
   return (
-    <ScrollView>
-      <LinearGradient
-        colors={[
-          '#000B18',
-          '#00172D',
-          '#00264D',
-          '#02386E',
-          '#00498D',
-          '#0052A2',
-        ]}
-        style={styles.LoginScreen.lgContainer}>
-        {loading}
-        {/* <HeaderBar navigation={navigation}>Sign In</HeaderBar> */}
+    <LinearGradient
+      colors={[
+        '#000B18',
+        '#00172D',
+        '#00264D',
+        '#02386E',
+        '#00498D',
+        '#0052A2',
+      ]}
+      style={styles.LoginScreen.lgContainer}>
+      {loading}
+      <ScrollView>
         <View style={styles.LoginScreen.container}>
           <View style={styles.LoginScreen.titleView}>
             <SvgLogoImg height={40} width={40} />
@@ -105,7 +97,6 @@ const LoginScreen = ({navigation, route}: PropsType) => {
               oncePasswordFocused={oncePasswordFocused}
               setOncePasswordFocused={setOncePasswordFocused}
               isLoginScreen={true}
-              refConfirmPassword={refConfirmPassword}
               refPassword={refPassword}
             />
           </View>
@@ -125,8 +116,8 @@ const LoginScreen = ({navigation, route}: PropsType) => {
             </Text>
           </TouchableOpacity>
         </View>
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 

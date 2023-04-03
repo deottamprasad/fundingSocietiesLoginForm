@@ -1,12 +1,6 @@
-import React, {Dispatch, SetStateAction, useContext} from 'react';
-import {
-  GestureResponderEvent,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import BUTTON from '../assets/constants/colorCodes';
-import {CountryContext} from '../screens/SelectCountryScreen';
+import React from 'react';
+import {GestureResponderEvent, Text, TouchableOpacity} from 'react-native';
+import {BUTTON} from '../assets/constants/colorCodes';
 import {styles} from '../styles/ComponentStyle';
 
 interface PropsType {
@@ -16,16 +10,9 @@ interface PropsType {
   isPasswordFieldCorrect?: boolean;
   isConfirmPasswordFieldCorrect?: boolean;
   isCountryScreen?: boolean;
+  isRegister?: boolean;
 }
-type CountryContextType = {
-  selectCountry: boolean;
-  setSelectCountry: Dispatch<SetStateAction<boolean>>;
-};
-
 const BlueButton = (props: PropsType) => {
-  const {selectCountry, setSelectCountry} =
-    useContext<CountryContextType>(CountryContext);
-
   let emailFieldNotProvided = true;
   let passwordFieldNotProvided = true;
   let confirmPasswordFieldNotProvided = true;
@@ -40,7 +27,7 @@ const BlueButton = (props: PropsType) => {
     passwordFieldNotProvided = props.isPasswordFieldCorrect;
   }
   if (props.isCountryScreen != undefined) {
-    countryNotProvided = selectCountry;
+    countryNotProvided = props.isCountryScreen;
   }
 
   return (

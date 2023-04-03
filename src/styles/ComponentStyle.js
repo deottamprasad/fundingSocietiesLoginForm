@@ -8,7 +8,7 @@ export const styles = {
       justifyContent: 'center',
       height: 35,
       width: '90%',
-      borderRadius: 10,
+      borderRadius: 5,
       marginTop: '2%',
       marginBottom: '4%',
     },
@@ -64,24 +64,6 @@ export const styles = {
       marginTop: 0,
     },
   }),
-  HeaderBar: StyleSheet.create({
-    headerBar: {
-      width: '100%',
-      height: '5%',
-      paddingHorizontal: '5%',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    leftArrowIcon: {
-      position: 'absolute',
-      right: '100%',
-    },
-    titleText: {
-      color: 'white',
-      fontSize: 15,
-    },
-  }),
   InvalidText: StyleSheet.create({
     invalidTextView: {
       marginBottom: '7%',
@@ -135,6 +117,59 @@ export const styles = {
     eyeIcon: {
       width: 15,
       height: 14,
+    },
+  }),
+  HeaderTabItem: StyleSheet.create({
+    headerTabItem: {
+      width: '48%',
+      paddingVertical: '2.5%',
+      borderRadius: 30,
+      borderColor: '#0000FF',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    headerTabText: {
+      color: 'white',
+    },
+  }),
+  FlatListItem :StyleSheet.create({
+    itemView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: '4%',
+      borderBottomColor: 'white',
+      borderBottomWidth: 0.5,
+    },
+    firstCol: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+    dateMoneyText: {
+      fontSize: 15,
+      color: 'white',
+    },
+    actionStatusText: {
+      fontSize: 14,
+      color: '#EBEBE3',
+    },
+    secondCol: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
+    moneyView: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    statusView: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    dateText: {
+      marginRight: '2%',
+      marginLeft: 1,
+    },
+    statusText: {
+      marginLeft: '5%',
     },
   }),
 };

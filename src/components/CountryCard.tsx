@@ -1,10 +1,4 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -13,51 +7,79 @@ import {
   Image,
   ImageSourcePropType,
 } from 'react-native';
-import {CountryContext} from '../screens/SelectCountryScreen';
 
 interface PropsType {
   text: string;
   img: ImageSourcePropType;
-  selectCountry?: boolean;
-  setselectCountry?: Dispatch<SetStateAction<boolean>>;
+  selectCountry: boolean[];
+  setSelectCountry: Dispatch<SetStateAction<boolean[]>>;
 }
-type CountryContextType = {
-  selectCountry: boolean;
-  setSelectCountry: Dispatch<SetStateAction<boolean>>;
-};
 
 const CountryCard = (props: PropsType) => {
   const [pressed, setPressed] = useState(false);
-  // const countryContext = useContext(CountryContext);
-  //console.log(countryContext);
-  const {selectCountry, setSelectCountry} =
-    useContext<CountryContextType>(CountryContext);
-  //console.log(selectCountry);
+  const [pressedCountry, setPressedCountry] = useState(false);
+
+  const {selectCountry: selectCountry, setSelectCountry: setSelectCountry} =
+    props;
   const handleOnPress = () => {
-    if ((!pressed && !selectCountry) || (pressed && selectCountry))
-      setPressed(!pressed);
+    setPressed(!pressed);
+    if (pressed) setPressedCountry(true);
   };
-  console.log(pressed, selectCountry);
+
+  const bgColor = () => {
+    if (props.text == 'Thailand' && selectCountry[0] == true)
+      return 'rgba(255,255,255,0.9)';
+    else if (props.text == 'Singapore' && selectCountry[1] == true)
+      return 'rgba(255,255,255,0.9)';
+    else if (props.text == 'Malaysia' && selectCountry[2] == true)
+      return 'rgba(255,255,255,0.9)';
+    else if (props.text == 'Indonesia' && selectCountry[3] == true)
+      return 'rgba(255,255,255,0.9)';
+    else return 'rgba(255,255,255,0.2)';
+  };
+
+  const textColor = () => {
+    if (props.text == 'Thailand' && selectCountry[0] == true) return 'black';
+    else if (props.text == 'Singapore' && selectCountry[1] == true)
+      return 'black';
+    else if (props.text == 'Malaysia' && selectCountry[2] == true)
+      return 'black';
+    else if (props.text == 'Indonesia' && selectCountry[3] == true)
+      return 'black';
+    else return 'white';
+  };
+
   useEffect(() => {
-    if (pressed) setSelectCountry(true);
-    else setSelectCountry(false);
+    if (pressed || pressedCountry) {
+      if (props.text == 'Thailand')
+        setSelectCountry([true, false, false, false]);
+      if (props.text == 'Singapore')
+        setSelectCountry([false, true, false, false]);
+      if (props.text == 'Malaysia')
+        setSelectCountry([false, false, true, false]);
+      if (props.text == 'Indonesia')
+        setSelectCountry([false, false, false, true]);
+    } else setSelectCountry([false, false, false, false]);
   }, [pressed]);
-  //console.log(props.img);
+
+  useEffect(() => {
+    bgColor();
+    textColor();
+  });
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        activeOpacity={selectCountry ? 1 : 0.1}
         onPress={handleOnPress}
         style={[
           styles.cardView,
           {
-            backgroundColor: pressed ? 'white' : 'rgba(255, 255, 255, 0.2)',
+            backgroundColor: bgColor(),
           },
         ]}>
         <Image style={styles.flagImg} source={props.img} />
 
-        <Text
-          style={[styles.countryName, {color: pressed ? 'black' : 'white'}]}>
+        <Text style={[styles.countryName, {color: textColor()}]}>
           {props.text}
         </Text>
       </TouchableOpacity>
@@ -81,12 +103,13 @@ const styles = StyleSheet.create({
   },
   countryName: {
     color: 'white',
-    fontSize: 17,
+    fontSize: 15,
     marginTop: '5%',
     fontWeight: '300',
   },
   flagImg: {
-    height: '45%',
+    height: '60%',
     width: '60%',
+    resizeMode: 'contain',
   },
 });

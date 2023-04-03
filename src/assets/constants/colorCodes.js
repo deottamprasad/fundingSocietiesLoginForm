@@ -16,4 +16,8 @@ const BUTTON = {
       TEXT: '#FFFFFF',
     },
   };
-  export default BUTTON;
+  const TABBARICON = {
+    FOCUSED: 'white',
+    UNFOCUSED: '#C3C3BB'
+  }
+  export {BUTTON, TABBARICON};

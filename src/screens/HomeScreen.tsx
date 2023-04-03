@@ -1,18 +1,11 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  BackHandler,
-} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, BackHandler} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import SvgLogoImg from '../assets/images/logo.svg';
-import HeaderBar from '../components/HeaderBar';
-import {RootStackParamList} from '../components/Main';
+import {RootStackParamList} from '../navigation/StackNavigator';
+
 import {styles} from '../styles/ScreenStyle';
 
 type PropsType = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>;
@@ -21,9 +14,6 @@ const HomeScreen = ({navigation, route}: PropsType) => {
   const handleLogoutPress = () => {
     navigation.navigate('WelcomeScreen');
   };
-  // navigation.addListener('beforeRemove', e => {
-  //   e.preventDefault();
-  // });
   const backAction = () => {
     Alert.alert('Exit App', 'Exiting the application?', [
       {
@@ -34,7 +24,6 @@ const HomeScreen = ({navigation, route}: PropsType) => {
       {
         text: 'YES',
         onPress: () => {
-          // navigation.navigate('WelcomeScreen');
           BackHandler.exitApp();
         },
       },
@@ -49,8 +38,6 @@ const HomeScreen = ({navigation, route}: PropsType) => {
 
     return () => backHandler.remove();
   }, []);
-
-  // console.log(navigation);
   return (
     <LinearGradient
       colors={[
@@ -62,7 +49,6 @@ const HomeScreen = ({navigation, route}: PropsType) => {
         '#0052A2',
       ]}
       style={styles.HomeScreen.lgContainer}>
-      {/* <HeaderBar navigation={navigation}>Home</HeaderBar> */}
       <View style={styles.HomeScreen.container}>
         <View style={styles.HomeScreen.titleView}>
           <SvgLogoImg height={40} width={40} />
