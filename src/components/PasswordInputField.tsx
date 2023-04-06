@@ -1,14 +1,8 @@
 import React, {RefObject, SetStateAction, useEffect, useState} from 'react';
 import {Dispatch} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {componentStyles} from '../styles/ComponentStyle';
+import {styles} from '../styles/ComponentStyle';
 import InvalidText from './InvalidText';
 
 interface PropsType {
@@ -18,8 +12,8 @@ interface PropsType {
   oncePasswordFocused: boolean;
   setOncePasswordFocused: Dispatch<SetStateAction<boolean>>;
   isLoginScreen?: boolean;
-  refPassword?: RefObject<TextInput>;
-  refConfirmPassword?: RefObject<TextInput>;
+  refConfirmPassword: RefObject<TextInput>;
+  refPassword: RefObject<TextInput>;
 }
 
 const PasswordInputField = (props: PropsType) => {
@@ -33,6 +27,10 @@ const PasswordInputField = (props: PropsType) => {
   const [validationPassword, setValidationPassword] = useState('');
   const passwordRegex =
     /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+
+  const {refConfirmPassword} = props;
+  const {refPassword} = props;
+  console.log(props.isLoginScreen);
   const handleEyeButtonPress = () => {
     setIsEyeButtonOn(prevEyeButton => !prevEyeButton);
   };
@@ -59,24 +57,25 @@ const PasswordInputField = (props: PropsType) => {
         setValidationPassword('');
         props.setIsPasswordFieldCorrect(true);
       }
-    } else {
-      setValidationPassword('');
     }
   }, [onceFocused]);
+
+  const borderColor = () => {
+    if (validationPassword == '') return 'white';
+    else return '#ff9933';
+  };
   return (
     <>
       {password.length > 0 && (
-        <Text style={componentStyles.PasswordInputField.passLabel}>
-          Password
-        </Text>
+        <Text style={styles.PasswordInputField.passLabel}>Password</Text>
       )}
-      <View style={componentStyles.PasswordInputField.passInputView}>
+      <View style={styles.PasswordInputField.passInputView}>
         <TextInput
           placeholder="Password"
           style={[
-            componentStyles.PasswordInputField.inputField,
+            styles.PasswordInputField.inputField,
             password.length > 0 ? {width: '85%'} : {width: '90%'},
-            {borderBottomColor: validationPassword ? '#ff9933' : 'white'},
+            {borderBottomColor: borderColor()},
           ]}
           placeholderTextColor="white"
           keyboardType="ascii-capable"
@@ -84,30 +83,25 @@ const PasswordInputField = (props: PropsType) => {
           textContentType="password"
           value={password}
           onChangeText={handlePasswordChange}
-          ref={props.refPassword}
-          onSubmitEditing={() => {
-            props.refConfirmPassword?.current?.focus();
-          }}
-          onBlur={() => {
-            setOnceFocused(true);
-          }}
-          onFocus={() => {
-            setOnceFocused(false);
-          }}
+          ref={refPassword}
+          onSubmitEditing={() => refConfirmPassword.current?.focus()}
+          onBlur={() => setOnceFocused(true)}
+          onFocus={() => setOnceFocused(false)}
+          blurOnSubmit={props.isLoginScreen || false}
         />
         {password.length > 0 && isEyeButtonOn && (
           <TouchableOpacity
             activeOpacity={0.9}
             style={[
-              componentStyles.PasswordInputField.eyeIconView,
-              {borderBottomColor: validationPassword ? '#ff9933' : 'white'},
+              styles.PasswordInputField.eyeIconView,
+              {borderBottomColor: borderColor()},
             ]}
             onPress={handleEyeButtonPress}>
             <Icon
               name="eye"
               size={15}
               color="white"
-              style={componentStyles.PasswordInputField.eyeIcon}
+              style={styles.PasswordInputField.eyeIcon}
             />
           </TouchableOpacity>
         )}
@@ -115,15 +109,15 @@ const PasswordInputField = (props: PropsType) => {
           <TouchableOpacity
             activeOpacity={0.9}
             style={[
-              componentStyles.PasswordInputField.eyeIconView,
-              {borderBottomColor: validationPassword ? '#ff9933' : 'white'},
+              styles.PasswordInputField.eyeIconView,
+              {borderBottomColor: borderColor()},
             ]}
             onPress={handleEyeButtonPress}>
             <Icon
               name="eye-off"
               size={15}
               color="white"
-              style={componentStyles.PasswordInputField.eyeIcon}
+              style={styles.PasswordInputField.eyeIcon}
             />
           </TouchableOpacity>
         )}
@@ -132,5 +126,4 @@ const PasswordInputField = (props: PropsType) => {
     </>
   );
 };
-
 export default PasswordInputField;
