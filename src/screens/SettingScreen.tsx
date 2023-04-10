@@ -31,6 +31,9 @@ const SettingsScreen = ({navigation, route}: PropsType) => {
       },
     ]);
   };
+  const handleReferFriendsPress = () => {
+    navigation.navigate('ReferScreen');
+  };
 
   return (
     <View style={styles.SettingScreen.container}>
@@ -57,7 +60,11 @@ const SettingsScreen = ({navigation, route}: PropsType) => {
                 },
               ]}
               onPress={() =>
-                item.title == 'Logout' ? handleLogoutPress() : null
+                item.title == 'Logout'
+                  ? handleLogoutPress()
+                  : item.title == 'Refer Friends'
+                  ? handleReferFriendsPress()
+                  : null
               }>
               <Image style={styles.SettingScreen.img} source={item.img} />
               <View style={styles.SettingScreen.titleView}>

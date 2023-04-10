@@ -5,10 +5,11 @@ import TabBarIcon from '../components/TabBarIcon';
 import DummyScreen from '../screens/DummyScreen';
 import FundsScreen from '../screens/FundsScreen';
 import SettingScreen from '../screens/SettingScreen';
+import PortfolioScreen from '../screens/PortfolioScreen';
 
 type RootTabParamList = {
   DummyScreen1: undefined;
-  DummyScreen2: undefined;
+  PortfolioScreen: undefined;
   DummyScreen3: undefined;
   FundsScreen: undefined;
   SettingScreen: undefined;
@@ -19,7 +20,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="DummyScreen1"
+      initialRouteName="PortfolioScreen"
       screenOptions={({route}) => ({
         headerStyle: {
           backgroundColor: '#00264D',
@@ -46,9 +47,9 @@ const TabNavigator = () => {
         options={{title: 'Dummy1'}}
       />
       <Tab.Screen
-        name="DummyScreen2"
-        component={DummyScreen}
-        options={{title: 'Dummy2'}}
+        name="PortfolioScreen"
+        component={PortfolioScreen}
+        options={{title: 'Portfolio'}}
       />
       <Tab.Screen
         name="DummyScreen3"

@@ -9,6 +9,7 @@ import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import SelectCountryScreen from '../screens/SelectCountryScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import TabNavigator from './TabNavigator';
+import ReferScreen from '../screens/ReferScreen';
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -18,6 +19,7 @@ type RootStackParamList = {
   ForgotPasswordScreen: undefined;
   ResetPasswordScreen: undefined;
   SelectCountryScreen: {isRegister: boolean};
+  ReferScreen: undefined;
   MyTab: undefined;
 };
 
@@ -26,7 +28,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="WelcomeScreen"
+      initialRouteName="MyTab"
       screenOptions={{
         animation: 'slide_from_right',
         headerStyle: {backgroundColor: '#000B18'},
@@ -71,6 +73,17 @@ const StackNavigator = () => {
         name="SelectCountryScreen"
         component={SelectCountryScreen}
         options={{headerShown: true, title: ''}}
+      />
+      <Stack.Screen
+        name="ReferScreen"
+        component={ReferScreen}
+        options={{
+          headerShown: true,
+          title: '',
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: '#00264D'},
+          statusBarColor: '#00264D',
+        }}
       />
       <Stack.Screen
         name="MyTab"

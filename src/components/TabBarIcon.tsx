@@ -20,7 +20,7 @@ const TabBarIcon = (props: PropsType) => {
     ) : (
       <FontAwesomeIcon name="user" size={25} color={TABBARICON.UNFOCUSED} />
     );
-  } else if (route.name === 'DummyScreen2') {
+  } else if (route.name === 'PortfolioScreen') {
     return focused ? (
       <MaterialIcon name="table-chart" size={25} color={TABBARICON.FOCUSED} />
     ) : (

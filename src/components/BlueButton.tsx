@@ -1,5 +1,6 @@
 import React from 'react';
 import {GestureResponderEvent, Text, TouchableOpacity} from 'react-native';
+
 import {BUTTON} from '../assets/constants/colorCodes';
 import {styles} from '../styles/ComponentStyle';
 
