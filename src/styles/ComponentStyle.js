@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const componentStyles = {
+export const styles = {
   BlueButton: StyleSheet.create({
     buttonView: {
       backgroundColor: '#0096FF',
@@ -8,7 +8,7 @@ export const componentStyles = {
       justifyContent: 'center',
       height: 35,
       width: '90%',
-      borderRadius: 5,
+      borderRadius: 6,
       marginTop: '2%',
       marginBottom: '4%',
     },
@@ -67,7 +67,6 @@ export const componentStyles = {
   HeaderBar: StyleSheet.create({
     headerBar: {
       width: '100%',
-      minHeight: 20,
       height: '5%',
       paddingHorizontal: '5%',
       flexDirection: 'row',

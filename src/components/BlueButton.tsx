@@ -1,7 +1,12 @@
 import React from 'react';
-import {GestureResponderEvent, Text, TouchableOpacity} from 'react-native';
-import BUTTON from '../assets/constants/colorCodes';
-import {componentStyles} from '../styles/ComponentStyle';
+import {
+  GestureResponderEvent,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import {BUTTON} from '../assets/constants/colorCodes';
+import {styles} from '../styles/ComponentStyle';
 
 interface PropsType {
   children: React.ReactNode;
@@ -9,12 +14,14 @@ interface PropsType {
   isEmailFieldCorrect?: boolean;
   isPasswordFieldCorrect?: boolean;
   isConfirmPasswordFieldCorrect?: boolean;
+  isCountryScreen?: boolean;
+  isRegister?: boolean;
 }
-
 const BlueButton = (props: PropsType) => {
   let emailFieldNotProvided = true;
   let passwordFieldNotProvided = true;
   let confirmPasswordFieldNotProvided = true;
+  let countryNotProvided = true;
   if (props.isEmailFieldCorrect != undefined) {
     emailFieldNotProvided = props.isEmailFieldCorrect;
   }
@@ -24,6 +31,9 @@ const BlueButton = (props: PropsType) => {
   if (props.isPasswordFieldCorrect != undefined) {
     passwordFieldNotProvided = props.isPasswordFieldCorrect;
   }
+  if (props.isCountryScreen != undefined) {
+    countryNotProvided = props.isCountryScreen;
+  }
 
   return (
     <>
@@ -31,25 +41,28 @@ const BlueButton = (props: PropsType) => {
         activeOpacity={
           emailFieldNotProvided &&
           passwordFieldNotProvided &&
-          confirmPasswordFieldNotProvided
+          confirmPasswordFieldNotProvided &&
+          countryNotProvided
             ? 0.5
             : 1
         }
         style={[
-          componentStyles.BlueButton.buttonView,
+          styles.BlueButton.buttonView,
           emailFieldNotProvided &&
           passwordFieldNotProvided &&
-          confirmPasswordFieldNotProvided
+          confirmPasswordFieldNotProvided &&
+          countryNotProvided
             ? {backgroundColor: BUTTON.PRIMARY.BG}
             : {backgroundColor: BUTTON.DISABLED.BG},
         ]}
         onPress={props.onPress}>
         <Text
           style={[
-            componentStyles.BlueButton.buttonText,
+            styles.BlueButton.buttonText,
             emailFieldNotProvided &&
             passwordFieldNotProvided &&
-            confirmPasswordFieldNotProvided
+            confirmPasswordFieldNotProvided &&
+            countryNotProvided
               ? {color: BUTTON.PRIMARY.TEXT}
               : {color: BUTTON.DISABLED.TEXT},
           ]}>

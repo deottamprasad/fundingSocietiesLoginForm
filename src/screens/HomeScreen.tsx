@@ -1,28 +1,42 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, BackHandler} from 'react-native';
+
 import LinearGradient from 'react-native-linear-gradient';
 
 import SvgLogoImg from '../assets/images/logo.svg';
-import HeaderBar from '../components/HeaderBar';
-import {RootStackParamList} from '../components/Main';
-import {screenStyles} from '../styles/ScreenStyle';
+import {RootStackParamList} from '../navigation/StackNavigator';
+import {styles} from '../styles/ScreenStyle';
 
 type PropsType = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>;
 
 const HomeScreen = ({navigation, route}: PropsType) => {
-  const handleLogoutPress = () => {
-    navigation.navigate('WelcomeScreen');
+  const backAction = () => {
+    Alert.alert('Exit App', 'Exiting the application?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {
+        text: 'YES',
+        onPress: () => {
+          BackHandler.exitApp();
+        },
+      },
+    ]);
+    return true;
   };
   useEffect(() => {
-    StatusBar.setHidden(true);
-  });
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
+  // console.log(navigation);
   return (
     <LinearGradient
       colors={[
@@ -33,20 +47,18 @@ const HomeScreen = ({navigation, route}: PropsType) => {
         '#00498D',
         '#0052A2',
       ]}
-      style={screenStyles.HomeScreen.lgContainer}>
-      <View style={screenStyles.HomeScreen.container}>
-        <View style={screenStyles.HomeScreen.titleView}>
+      style={styles.HomeScreen.lgContainer}>
+      <View style={styles.HomeScreen.container}>
+        <View style={styles.HomeScreen.titleView}>
           <SvgLogoImg height={40} width={40} />
-          <View style={screenStyles.HomeScreen.fsTitleView}>
-            <Text style={screenStyles.HomeScreen.fundingText}>funding</Text>
-            <Text style={screenStyles.HomeScreen.societiesText}>societies</Text>
+          <View style={styles.HomeScreen.fsTitleView}>
+            <Text style={styles.HomeScreen.fundingText}>funding</Text>
+            <Text style={styles.HomeScreen.societiesText}>societies</Text>
           </View>
         </View>
-        <Text style={screenStyles.HomeScreen.homeText}>Home Page</Text>
-        <TouchableOpacity
-          style={screenStyles.HomeScreen.accountView}
-          onPress={handleLogoutPress}>
-          <Text style={screenStyles.HomeScreen.accountText}>logout</Text>
+        <Text style={styles.HomeScreen.homeText}>Home Page</Text>
+        <TouchableOpacity style={styles.HomeScreen.accountView}>
+          <Text style={styles.HomeScreen.accountText}>settings</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>
