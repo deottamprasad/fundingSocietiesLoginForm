@@ -28,3 +28,9 @@ export const fetchIdAndToken = async (email, password) => {
     });
     return resObj.json();
 }
+
+//Portfolio Screen
+export const fetchItems = async () => {
+    const res = await fetch('https://mocki.io/v1/11684c46-2cf8-4e85-b920-35a8e5458a66');
+    return res.json();
+}

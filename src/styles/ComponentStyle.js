@@ -172,4 +172,117 @@ export const styles = {
       marginLeft: '5%',
     },
   }),
+  PortfolioCard: StyleSheet.create({
+    container: {
+      marginVertical: '2%',
+    },
+    upperContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: 'rgba(255,255,255,0.2)',
+      justifyContent: 'space-between',
+      padding: '3%',
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
+      borderBottomWidth: 0.5,
+      borderColor: 'white',
+    },
+    upperLeftColumn: {
+      flexDirection: 'column',
+    },
+    idText: {
+      color: '#EBEBE3',
+      fontSize: 11,
+    },
+    userText: {
+      color: '#C3C3BB',
+      fontSize: 10.5,
+    },
+    moneyView: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    moneyText: {
+      color: 'white',
+      fontWeight: '500',
+      fontSize: 14,
+      marginLeft: 1,
+      marginRight: 1,
+    },
+    lowerContainer1: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      backgroundColor: 'rgba(255,255,255,0.2)',
+      borderBottomLeftRadius: 5,
+      borderBottomRightRadius: 5,
+      padding: '3%',
+    },
+    lowerLeftColumn: {
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    },
+    lowerRightColumn: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
+    paidView: {
+      width: 40,
+      backgroundColor: '#21B6A8',
+      borderRadius: 3,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: '1.5%',
+      marginTop: 6,
+    },
+    paidText: {
+      color: 'white',
+      fontSize: 10.5,
+    },
+    inProgressView: {
+      marginTop: 6,
+      padding: '5%',
+      paddingHorizontal: '7%',
+      borderColor: 'gold',
+      borderWidth: 1,
+      borderRadius: 3,
+    },
+    inProgressText: {
+      fontSize: 10.5,
+      color: 'gold',
+    },
+    partialView: {
+      borderColor: 'orange',
+      borderWidth: 1,
+      padding: '5%',
+      paddingHorizontal: '7%',
+      borderRadius: 3,
+      marginTop: 6,
+    },
+    partialText: {
+      color: 'orange',
+      fontSize: 10.5,
+    },
+    lowerContainer2: {
+      backgroundColor: 'rgba(255,255,255,0.2)',
+      alignItems: 'flex-end',
+      paddingTop: '5%',
+      padding: '3%',
+      borderBottomLeftRadius: 5,
+      borderBottomRightRadius: 5,
+    },
+  }),
+  FlatListItem2: StyleSheet.create({
+    itemContainer: {
+      height: 60,
+      width: 90,
+      justifyContent: 'space-around',
+      marginHorizontal: 3,
+      paddingHorizontal: 7,
+      paddingVertical: 7,
+      borderRadius: 3,
+    },
+    titleText: {
+      fontSize: 12,
+    },
+  }),
 };

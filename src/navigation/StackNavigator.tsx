@@ -1,5 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -9,6 +9,8 @@ import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import SelectCountryScreen from '../screens/SelectCountryScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import TabNavigator from './TabNavigator';
+import ReferScreen from '../screens/ReferScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -18,7 +20,22 @@ type RootStackParamList = {
   ForgotPasswordScreen: undefined;
   ResetPasswordScreen: undefined;
   SelectCountryScreen: {isRegister: boolean};
-  MyTab: undefined;
+  ReferScreen: undefined;
+  ProfileScreen: {
+    userImage: string | undefined;
+    setUserImage: Dispatch<SetStateAction<string | undefined>>;
+    userEmail: string;
+    setUserEmail: Dispatch<SetStateAction<string>>;
+    userDob: string | undefined;
+    setUserDob: Dispatch<SetStateAction<string | undefined>>;
+  };
+  MyTab:
+    | undefined
+    | {
+        email: string;
+        dob: string | undefined;
+        fileResponse: string | undefined;
+      };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,7 +43,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="WelcomeScreen"
+      initialRouteName="MyTab"
       screenOptions={{
         animation: 'slide_from_right',
         headerStyle: {backgroundColor: '#000B18'},
@@ -71,6 +88,28 @@ const StackNavigator = () => {
         name="SelectCountryScreen"
         component={SelectCountryScreen}
         options={{headerShown: true, title: ''}}
+      />
+      <Stack.Screen
+        name="ReferScreen"
+        component={ReferScreen}
+        options={{
+          headerShown: true,
+          title: '',
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: '#00264D'},
+          statusBarColor: '#00264D',
+        }}
+      />
+      <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{
+          headerShown: true,
+          title: 'Profile',
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: '#00264D'},
+          statusBarColor: '#00264D',
+        }}
       />
       <Stack.Screen
         name="MyTab"

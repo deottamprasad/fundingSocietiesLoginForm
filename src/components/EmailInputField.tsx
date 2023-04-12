@@ -1,9 +1,17 @@
 import React, {RefObject, useEffect, useState} from 'react';
 import {SetStateAction} from 'react';
 import {Dispatch} from 'react';
-import {Text, TextInput} from 'react-native';
+import {
+  GestureResponderEvent,
+  Text,
+  TextInput,
+  Touchable,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import InvalidText from './InvalidText';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {styles} from '../styles/ComponentStyle';
 
@@ -14,6 +22,9 @@ interface PropsType {
   onceEmailFocused: boolean;
   setOnceEmailFocused: Dispatch<SetStateAction<boolean>>;
   refPassword?: RefObject<TextInput>;
+  needPencil?: boolean;
+  handleEmailEdit?: ((event: GestureResponderEvent) => void) | undefined;
+  refModalEmail?: RefObject<TextInput>;
 }
 
 const EmailInputField = (props: PropsType) => {
@@ -44,28 +55,48 @@ const EmailInputField = (props: PropsType) => {
   return (
     <>
       {email.length > 0 && (
-        <Text style={styles.EmailInputField.emailLabel}>Email</Text>
+        <Text style={[styles.EmailInputField.emailLabel]}>Email</Text>
       )}
-      <TextInput
-        placeholder="Email"
-        style={[
-          styles.EmailInputField.inputField,
-          {borderBottomColor: validationEmail ? '#ff9933' : 'white'},
-        ]}
-        placeholderTextColor="white"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={handleEmailChange}
-        onSubmitEditing={() => {
-          props.refPassword?.current?.focus();
-        }}
-        onBlur={() => {
-          setOnceFocused(true);
-        }}
-        onFocus={() => {
-          setOnceFocused(false);
-        }}
-      />
+      <View style={{flexDirection: 'row'}}>
+        <TextInput
+          placeholder="Email"
+          editable={props.needPencil != undefined ? false : true}
+          ref={props.refModalEmail != undefined ? props.refModalEmail : null}
+          style={[
+            styles.EmailInputField.inputField,
+            {
+              borderBottomColor: validationEmail ? '#ff9933' : 'white',
+              width: props.needPencil != undefined ? '80%' : '90%',
+            },
+          ]}
+          placeholderTextColor="white"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={handleEmailChange}
+          onSubmitEditing={() => {
+            props.refPassword?.current?.focus();
+          }}
+          onBlur={() => {
+            setOnceFocused(true);
+          }}
+          onFocus={() => {
+            setOnceFocused(false);
+          }}
+        />
+        {props.needPencil && (
+          <View
+            style={{
+              width: '10%',
+              borderBottomColor: 'white',
+              borderBottomWidth: 1,
+              alignItems: 'flex-end',
+            }}>
+            <TouchableOpacity onPress={props.handleEmailEdit}>
+              <FontAwesome name="pencil" size={14} color="white" />
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
       <InvalidText>{validationEmail}</InvalidText>
     </>
   );

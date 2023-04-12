@@ -1,12 +1,19 @@
 import React, {RefObject, useEffect, useState} from 'react';
 import {SetStateAction} from 'react';
 import {Dispatch} from 'react';
-import {Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  GestureResponderEvent,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import InvalidText from './InvalidText';
 
 import {styles} from '../styles/ComponentStyle';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 interface PropsType {
   setIsConfirmPasswordFieldCorrect: Dispatch<SetStateAction<boolean>>;
@@ -16,6 +23,8 @@ interface PropsType {
   setOnceConfirmPasswordFocused: Dispatch<SetStateAction<boolean>>;
   password: string;
   refConfirmPassword: RefObject<TextInput>;
+  needPencil?: boolean;
+  handleEdit?: ((event: GestureResponderEvent) => void) | undefined;
 }
 
 const ConfirmPasswordInputField = (props: PropsType) => {
@@ -68,9 +77,14 @@ const ConfirmPasswordInputField = (props: PropsType) => {
       <View style={styles.ConfirmPasswordInputField.passInputView}>
         <TextInput
           placeholder="Confirm Password"
+          editable={props.needPencil != undefined ? false : true}
           style={[
             styles.ConfirmPasswordInputField.inputField,
-            confirmPassword.length > 0 ? {width: '85%'} : {width: '90%'},
+            props.needPencil
+              ? {width: '80%'}
+              : confirmPassword.length > 0
+              ? {width: '85%'}
+              : {width: '90%'},
             {
               borderBottomColor: validationConfirmPassword
                 ? '#ff9933'
@@ -89,46 +103,65 @@ const ConfirmPasswordInputField = (props: PropsType) => {
           }}
           onFocus={() => setOnceFocused(false)}
         />
-        {confirmPassword.length > 0 && isConfirmEyeButtonOn && (
-          <TouchableOpacity
-            activeOpacity={0.9}
-            style={[
-              styles.ConfirmPasswordInputField.eyeIconView,
-              {
-                borderBottomColor: validationConfirmPassword
-                  ? '#ff9933'
-                  : 'white',
-              },
-            ]}
-            onPress={handleConfirmEyeButtonPress}>
-            <Icon
-              name="eye"
-              size={15}
-              color="white"
-              style={styles.ConfirmPasswordInputField.eyeIcon}
-            />
-          </TouchableOpacity>
+        {props.needPencil && (
+          <View
+            style={{
+              width: '10%',
+              borderBottomColor: validationConfirmPassword
+                ? '#ff9933'
+                : 'white',
+              borderBottomWidth: 1,
+              alignItems: 'flex-end',
+            }}>
+            <TouchableOpacity onPress={props.handleEdit}>
+              <FontAwesome name="pencil" size={14} color="white" />
+            </TouchableOpacity>
+          </View>
         )}
-        {confirmPassword.length > 0 && !isConfirmEyeButtonOn && (
-          <TouchableOpacity
-            activeOpacity={0.9}
-            style={[
-              styles.ConfirmPasswordInputField.eyeIconView,
-              {
-                borderBottomColor: validationConfirmPassword
-                  ? '#ff9933'
-                  : 'white',
-              },
-            ]}
-            onPress={handleConfirmEyeButtonPress}>
-            <Icon
-              name="eye-off"
-              size={15}
-              color="white"
-              style={styles.ConfirmPasswordInputField.eyeIcon}
-            />
-          </TouchableOpacity>
-        )}
+        {confirmPassword.length > 0 &&
+          !props.needPencil &&
+          isConfirmEyeButtonOn && (
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={[
+                styles.ConfirmPasswordInputField.eyeIconView,
+                {
+                  borderBottomColor: validationConfirmPassword
+                    ? '#ff9933'
+                    : 'white',
+                },
+              ]}
+              onPress={handleConfirmEyeButtonPress}>
+              <Icon
+                name="eye"
+                size={15}
+                color="white"
+                style={styles.ConfirmPasswordInputField.eyeIcon}
+              />
+            </TouchableOpacity>
+          )}
+        {confirmPassword.length > 0 &&
+          !props.needPencil &&
+          !isConfirmEyeButtonOn && (
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={[
+                styles.ConfirmPasswordInputField.eyeIconView,
+                {
+                  borderBottomColor: validationConfirmPassword
+                    ? '#ff9933'
+                    : 'white',
+                },
+              ]}
+              onPress={handleConfirmEyeButtonPress}>
+              <Icon
+                name="eye-off"
+                size={15}
+                color="white"
+                style={styles.ConfirmPasswordInputField.eyeIcon}
+              />
+            </TouchableOpacity>
+          )}
       </View>
       <InvalidText>{validationConfirmPassword}</InvalidText>
     </>

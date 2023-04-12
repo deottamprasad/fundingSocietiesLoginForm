@@ -306,4 +306,71 @@ export const styles = {
       alignContent: 'center',
     },
   }),
+  PortfolioScreen: StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#00264D',
+      justifyContent: 'flex-start',
+      paddingHorizontal: '3%',
+    },
+    sectionTitle: {
+      backgroundColor: '#00264D',
+      paddingVertical: 2,
+    },
+    lottieView: {flex: 6, justifyContent: 'center', alignItems: 'center'},
+    lottieStyle: {
+      height: 130,
+      width: 130,
+      marginBottom: '5%',
+    },
+    currText: {fontSize: 18, color: 'white', fontWeight: 'bold'},
+  }),
+  ReferScreen: StyleSheet.create({
+    lgContainer: {
+      flex: 1,
+      backgroundColor: '#00264D',
+    },
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      height: Dimensions.get('window').height,
+    },
+    handshakeImgView: {
+      borderWidth: 20,
+      borderColor: 'rgba(255,255,255,0.2)',
+      borderRadius: 70,
+      marginBottom: '5%',
+    },
+    handshakeImg: {
+      height: 70,
+      width: 70,
+      borderRadius: 35,
+      resizeMode: 'contain',
+    },
+    descText: {
+      fontSize: 17,
+      color: 'white',
+      width: '80%',
+      marginBottom: '5%',
+      textAlign: 'center',
+    },
+    scanInfo: {
+      fontSize: 13,
+      width: '90%',
+      textAlign: 'center',
+      color: 'white',
+      marginBottom: '5%',
+    },
+    orText: {
+      fontSize: 17,
+      width: '90%',
+      textAlign: 'center',
+      color: 'white',
+      marginVertical: '2.5%',
+    },
+    qrCodeView: {
+      borderWidth: 2,
+      borderColor: 'white',
+    }
+  }),
 };

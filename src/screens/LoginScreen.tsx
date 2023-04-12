@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  ActivityIndicator,
+  Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -18,6 +18,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {fetchToken} from '../apiCalls/apiCalls';
 import {styles} from '../styles/ScreenStyle';
+import ActivityLoader from '../components/ActivityLoader';
 
 type PropsType = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
@@ -33,7 +34,6 @@ const LoginScreen = ({navigation, route}: PropsType) => {
 
   const handleTokenReceived = async () => {
     const resData = await fetchToken(email, password);
-    console.log(resData);
     if (!resData.error) {
       navigation.navigate('MyTab');
     } else {
@@ -45,7 +45,7 @@ const LoginScreen = ({navigation, route}: PropsType) => {
 
   const handleSignInPress = () => {
     if (isEmailFieldCorrect && isPasswordFieldCorrect) {
-      setLoading(<ActivityIndicator size="large" color="#005282" />);
+      setLoading(<ActivityLoader />);
       handleTokenReceived();
       setOnceEmailFocused(false);
       setOncePasswordFocused(false);

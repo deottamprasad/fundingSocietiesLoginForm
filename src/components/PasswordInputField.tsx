@@ -1,7 +1,14 @@
 import React, {RefObject, SetStateAction, useEffect, useState} from 'react';
 import {Dispatch} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  GestureResponderEvent,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import InvalidText from './InvalidText';
 
@@ -16,6 +23,8 @@ interface PropsType {
   isLoginScreen?: boolean;
   refPassword?: RefObject<TextInput>;
   refConfirmPassword?: RefObject<TextInput>;
+  needPencil?: boolean;
+  handleEdit?: ((event: GestureResponderEvent) => void) | undefined;
 }
 
 const PasswordInputField = (props: PropsType) => {
@@ -72,10 +81,17 @@ const PasswordInputField = (props: PropsType) => {
       <View style={styles.PasswordInputField.passInputView}>
         <TextInput
           placeholder="Password"
+          editable={props.needPencil != undefined ? false : true}
           style={[
             styles.PasswordInputField.inputField,
-            password.length > 0 ? {width: '85%'} : {width: '90%'},
-            {borderBottomColor: validationPassword ? '#ff9933' : 'white'},
+            props.needPencil
+              ? {width: '80%'}
+              : password.length > 0
+              ? {width: '85%'}
+              : {width: '90%'},
+            {
+              borderBottomColor: validationPassword ? '#ff9933' : 'white',
+            },
           ]}
           placeholderTextColor="white"
           keyboardType="ascii-capable"
@@ -94,7 +110,20 @@ const PasswordInputField = (props: PropsType) => {
             setOnceFocused(false);
           }}
         />
-        {password.length > 0 && isEyeButtonOn && (
+        {props.needPencil && (
+          <View
+            style={{
+              width: '10%',
+              borderBottomColor: validationPassword ? '#ff9933' : 'white',
+              borderBottomWidth: 1,
+              alignItems: 'flex-end',
+            }}>
+            <TouchableOpacity onPress={props.handleEdit}>
+              <FontAwesome name="pencil" size={14} color="white" />
+            </TouchableOpacity>
+          </View>
+        )}
+        {!props.needPencil && password.length > 0 && isEyeButtonOn && (
           <TouchableOpacity
             activeOpacity={0.9}
             style={[
@@ -110,7 +139,7 @@ const PasswordInputField = (props: PropsType) => {
             />
           </TouchableOpacity>
         )}
-        {password.length > 0 && !isEyeButtonOn && (
+        {!props.needPencil && password.length > 0 && !isEyeButtonOn && (
           <TouchableOpacity
             activeOpacity={0.9}
             style={[
